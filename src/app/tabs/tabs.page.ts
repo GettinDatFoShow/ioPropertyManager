@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
+  title="KB Homes";
+
   constructor() {}
+
+  setTitle(title: string) {
+    this.title = title;
+  }
 
 }

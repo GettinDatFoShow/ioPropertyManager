@@ -1,0 +1,21 @@
+<ion-split-pane>
+  <ion-menu contentId="content" menuId="homeFeed">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>
+          {{menuTitle}}
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" menu="homeFeed" *ngFor="let item of homeFeedList">
+          <ion-item routerLink="" routerDirection="root" rounterLinkActive="active-item">
+            <ion-label>{{item.label}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="contentId"></ion-router-outlet>
+</ion-split-pane>

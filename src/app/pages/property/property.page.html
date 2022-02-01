@@ -1,0 +1,37 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Properties
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="end" slot="fixed" (click)="addProperty()">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Property 1</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      a card for content about property 1
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Property 2</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      a card for content about property 2
+    </ion-card-content>
+  </ion-card>
+  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
+</ion-content>
