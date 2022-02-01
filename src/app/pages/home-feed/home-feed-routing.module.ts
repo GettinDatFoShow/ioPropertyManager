@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomeFeedPage
-  },
-  {
-    path: 'home-tab',
-    loadChildren: () => import('./home-tab/home-tab.module').then( m => m.HomeTabPageModule)
   }
 ];
 
