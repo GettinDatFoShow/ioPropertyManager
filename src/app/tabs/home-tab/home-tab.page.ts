@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeTabPage implements OnInit {
 
   menuTitle = 'Extras';
-  homeFeedList = [
-    { label: 'Home' , route: ''},
-    { label: 'Profile', route: ''},
-    { label: 'Team Members', route: ''},
-    { label: 'Merberships', route: ''},
-    { label: 'Settings', route: ''}
+  menuList = [
+    { label: 'Home' , route: 'homeFeed'},
+    { label: 'Profile', route: 'userProfile'},
+    { label: 'Team Members', route: 'teamMembers'},
+    { label: 'Serberships', route: 'subscriptionDetails'},
+    { label: 'Settings', route: 'settings'}
   ]
   constructor() { }
 

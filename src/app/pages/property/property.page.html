@@ -1,11 +1,15 @@
 
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="propertiesTabMenu"></ion-menu-button>
+    </ion-buttons>
     <ion-title>
       Properties
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="addProperty()">
   <ion-fab-button>
     <ion-icon name="add"></ion-icon>
@@ -33,5 +37,4 @@
       a card for content about property 2
     </ion-card-content>
   </ion-card>
-  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>

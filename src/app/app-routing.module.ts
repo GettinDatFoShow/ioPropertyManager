@@ -5,6 +5,16 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'scheduleHome',
+    redirectTo: '/tabs/scheduleTab/scheduleHome',
+    pathMatch: 'full'
+  },
+  {
+    path: 'propertiesHome',
+    redirectTo: '/tabs/propertiesTab/propertiesHome',
+    pathMatch: 'full'
   }
 ];
 @NgModule({

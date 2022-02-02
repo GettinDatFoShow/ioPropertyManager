@@ -7,11 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ScheduleTabPage,
-    // children: [
-    //   {
-    //     path: 'scheduleHome',
-    //     loadChildren: () => import('../schedule-tab/schedule-tab.module').then( m => m.ScheduleTabPageModule)
-    //   },
+    children: [
+      {
+        path: 'scheduleHome',
+        loadChildren: () => import('../../pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+      },
       // {
       //   path: 'settings',
       //   loadChildren: () => import('../../pages/settings/settings.module').then( m => m.SettingsPageModule)
@@ -28,18 +28,28 @@ const routes: Routes = [
       //   path: 'userProfile',
       //   loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
       // },
-  //     {
-  //       path: '',
-  //       redirectTo: '/scheduleTab/scheduleHome',
-  //       pathMatch: 'full'
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: '/scheduleTab/scheduleHome',
-  //   pathMatch: 'full'
-  }
+      {
+        path: '',
+        redirectTo: 'scheduleTab/scheduleHome',
+        pathMatch: 'full'
+      },
+      {
+        path: 'scheduleTab/scheduleHome',
+        redirectTo: '/tabs/scheduleTab/scheduleHome',
+        pathMatch: 'full'
+      },
+    ]
+  },
+  {
+    path: '',
+    redirectTo: '/scheduleTab/scheduleHome',
+    pathMatch: 'full'
+  },
+  {
+    path: 'scheduleTab/scheduleHome',
+    redirectTo: '/tabs/scheduleTab/scheduleHome',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

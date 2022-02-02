@@ -1,9 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>schedule-tab</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-split-pane contentId="content3">
+  <ion-menu contentId="content3" menuId="scheduleTabMenu">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>
+          {{menuTitle}}
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-<ion-content>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" menu="scheduleTabMenu" *ngFor="let item of menuList">
+          <ion-item [routerLink]="item.route" routerDirection="root" rounterLinkActive="active-item">
+            <ion-label>{{item.label}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
 
-</ion-content>
+  </ion-menu>
+  
+  <ion-router-outlet id="content3"></ion-router-outlet>
+</ion-split-pane>

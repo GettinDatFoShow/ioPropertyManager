@@ -21,14 +21,39 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/homeTab',
+        redirectTo: '/tabs/homeTab/homeFeed',
+        pathMatch: 'full'
+      },
+      {
+        path: 'scheduleHome',
+        redirectTo: '/tabs/scheduleTab/scheduleHome',
+        pathMatch: 'full'
+      },
+      {
+        path: 'propertiesHome',
+        redirectTo: '/tabs/propertiesTab/propertiesHome',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/homeTab',
+    redirectTo: '/tabs/homeTab/homeFeed',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tabs/homeFeed',
+    redirectTo: '/tabs/homeTab/homeFeed',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tabs/scheduleHome',
+    redirectTo: '/tabs/scheduleTab/scheduleHome',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tabs/propertiesHome',
+    redirectTo: '/tabs/propertiesTab/propertiesHome',
     pathMatch: 'full'
   }
 ];

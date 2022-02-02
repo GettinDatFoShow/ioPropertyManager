@@ -7,11 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PropertiesTabPage,
-    // children: [
-    //   {
-    //     path: 'propertiesHome',
-    //     loadChildren: () => import('../properties-tab/properties-tab.module').then( m => m.PropertiesTabPageModule)
-    //   },
+    children: [
+      {
+        path: 'propertiesHome',
+        loadChildren: () => import('../../pages/property/property.module').then( m => m.PropertyPageModule)
+      },
       // {
       //   path: 'settings',
       //   loadChildren: () => import('../../pages/settings/settings.module').then( m => m.SettingsPageModule)
@@ -28,18 +28,18 @@ const routes: Routes = [
       //   path: 'userProfile',
       //   loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
       // },
-      // {
-      //   path: '',
-      //   redirectTo: '/propertiesTab/propertiesHome',
-      //   pathMatch: 'full'
-      // }
-    // ]
+      {
+        path: '',
+        redirectTo: 'propertiesTab/propertiesHome',
+        pathMatch: 'full'
+      }
+    ],
   },
-  // {
-  //   path: '',
-  //   redirectTo: '/propertiesTab/propertiesHome',
-  //   pathMatch: 'full'
-  // }
+  {
+    path: '',
+    redirectTo: '/propertiesTab/propertiesHome',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

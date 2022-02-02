@@ -1,6 +1,9 @@
 
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="scheduleTabMenu"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Schedule</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,5 +15,7 @@
 </ion-fab>
 
 <ion-content [fullscreen]="true">
-  <ion-datetime value="2012-12-15T13:47:20.789"></ion-datetime>
+  <ion-card>  
+      <ion-datetime value="2012-12-15T13:47:20.789"></ion-datetime>
+  </ion-card>
 </ion-content>
