@@ -1,5 +1,5 @@
-<ion-split-pane contentId="content">
-  <ion-menu contentId="content" menuId="homeTabMenu">
+<ion-split-pane contentId="homeTabContent" [disable]="!paneEnabled">
+  <ion-menu side="start" contentId="homeTabContent" menuId="homeTabMenu">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>
@@ -20,5 +20,5 @@
 
   </ion-menu>
 
-  <ion-router-outlet id="content"></ion-router-outlet>
+  <ion-router-outlet id="homeTabContent"></ion-router-outlet>
 </ion-split-pane>

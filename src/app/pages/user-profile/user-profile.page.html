@@ -1,12 +1,52 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button menu="homeTabMenu"></ion-menu-button>
+      <ion-menu-button color="primary" menu="homeTabMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title>User Profile</ion-title>
+    <ion-title color="primary">User Profile</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
+  <div class="main_content_div">
+      <ion-buttons slot="start" class="menu_btn">
+        <ion-menu-button color="primary" menu="homeTabMenu"></ion-menu-button>
+      </ion-buttons>
+      <div class="user_div">
+        <div class="first_div">
+          <ion-label class="username">Kollin Buchollz</ion-label>
+        </div>
+        <div class="user_back" [style.backgroundImage]="'url(assets/kollin-kbhomes-profile.jpg)'">
 
+        </div>
+      </div>
+      <div class="content_div">
+        <ion-card>
+          <ion-list>
+            <ion-item>
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              <ion-label>(555) 555-555</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="mail-outline"></ion-icon>
+              <ion-label>kpbuchholz@gmail.com</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="business-outline"></ion-icon>
+              <ion-label>KB Home Services</ion-label>
+              <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="calendar-outline"></ion-icon>
+              <ion-label>Schedule</ion-label>
+              <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="today-outline"></ion-icon>
+              <ion-label>{{ exampleDate | date: 'MMM d, y' }} </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </div>
+  </div>
 </ion-content>

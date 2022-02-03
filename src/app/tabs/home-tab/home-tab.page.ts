@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'iopm-home-tab',
@@ -6,18 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-tab.page.scss'],
 })
 export class HomeTabPage implements OnInit {
-
+  paneEnabled: boolean = true;
   menuTitle = 'Extras';
   menuList = [
-    { label: 'Home' , route: 'homeFeed'},
-    { label: 'Profile', route: 'userProfile'},
-    { label: 'Team Members', route: 'teamMembers'},
-    { label: 'Serberships', route: 'subscriptionDetails'},
-    { label: 'Settings', route: 'settings'}
+    { label: 'Home' , route: '/tabs/homeTab/home'},
+    { label: 'Profile', route: '/tabs/homeTab/userProfile'},
+    { label: 'Team Members', route: '/tabs/homeTab/teamMembers'},
+    // { label: 'Serberships', route: 'subscriptionDetails'},
+    { label: 'Settings', route: '/tabs/homeTab/settings'}
   ]
-  constructor() { }
+  constructor(private menuController: MenuController) { }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.paneEnabled = true;
+    this.menuController.enable(true, 'homeTabMenu')
+  }
+
+  ionViewWillLeave() {
+    this.paneEnabled = false;
+  }
 }

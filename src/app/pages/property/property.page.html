@@ -2,21 +2,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button menu="propertiesTabMenu"></ion-menu-button>
+      <ion-menu-button color="primary"  menu="propertiesTabMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title color="primary" >
       Properties
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-fab vertical="top" horizontal="end" slot="fixed" (click)="addProperty()">
-  <ion-fab-button>
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
 <ion-content [fullscreen]="true">
+
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed" (click)="addProperty()">
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- <ion-popover [isOpen]="isPopoverOpen">
+    <ng-template>
+      <app-popover-content></app-popover-content>
+    </ng-template>
+  </ion-popover> -->
 
   <ion-card>
     <ion-card-header>

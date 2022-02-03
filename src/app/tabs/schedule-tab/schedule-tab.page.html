@@ -1,5 +1,5 @@
-<ion-split-pane contentId="content3">
-  <ion-menu contentId="content3" menuId="scheduleTabMenu">
+<ion-split-pane contentId="scheduleTabContent" [disable]="!paneEnabled">
+  <ion-menu contentId="scheduleTabContent" menuId="scheduleTabMenu">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>
@@ -20,5 +20,5 @@
 
   </ion-menu>
   
-  <ion-router-outlet id="content3"></ion-router-outlet>
+  <ion-router-outlet id="scheduleTabContent"></ion-router-outlet>
 </ion-split-pane>

@@ -21,44 +21,20 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/homeTab/homeFeed',
-        pathMatch: 'full'
-      },
-      {
-        path: 'scheduleHome',
-        redirectTo: '/tabs/scheduleTab/scheduleHome',
-        pathMatch: 'full'
-      },
-      {
-        path: 'propertiesHome',
-        redirectTo: '/tabs/propertiesTab/propertiesHome',
+        redirectTo: 'homeTab',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/homeTab/homeFeed',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs/homeFeed',
-    redirectTo: '/tabs/homeTab/homeFeed',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs/scheduleHome',
-    redirectTo: '/tabs/scheduleTab/scheduleHome',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs/propertiesHome',
-    redirectTo: '/tabs/propertiesTab/propertiesHome',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)],
 })
 export class TabsPageRoutingModule {}

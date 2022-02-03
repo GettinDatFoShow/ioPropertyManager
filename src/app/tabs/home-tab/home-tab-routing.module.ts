@@ -9,37 +9,40 @@ const routes: Routes = [
     component: HomeTabPage,
     children: [
       {
-        path: 'homeFeed',
-        loadChildren: () => import('../../pages/home-feed/home-feed.module').then( m => m.HomeFeedPageModule)
+        path: 'home',
+        loadChildren: () => import('../../pages/home-feed/home-feed.module').then( m => m.HomeFeedPageModule),
+        pathMatch: 'full'
       },
       {
         path: 'settings',
         loadChildren: () => import('../../pages/settings/settings.module').then( m => m.SettingsPageModule)
       },
-      {
-        path: 'subscriptionDetails',
-        loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
-      },
+      // {
+      //   path: 'subscriptionDetails',
+      //   loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
+      // },
       {
         path: 'teamMembers',
-        loadChildren: () => import('../../pages/team-members/team-members.module').then( m => m.TeamMembersPageModule)
+        loadChildren: () => import('../../pages/team-members/team-members.module').then( m => m.TeamMembersPageModule),
+        pathMatch: 'full'      
       },
       {
         path: 'userProfile',
-        loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+        loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule),
+        pathMatch: 'full'
       },
       {
         path: '',
-        redirectTo: '/homeTab/homeFeed',
+        redirectTo: 'userProfile',
         pathMatch: 'full'
-      }
+      },
     ]
   },
   {
     path: '',
-    redirectTo: '/homeTab/homeFeed',
+    redirectTo: 'userProfile',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

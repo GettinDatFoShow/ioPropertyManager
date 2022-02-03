@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfilePage implements OnInit {
 
+  exampleDate = new Date();
+  
   constructor() { }
 
   ngOnInit() {

@@ -1,17 +1,28 @@
+<ion-popover [isOpen]="isPopoverOpen" side="top" alignment="start">
+  <ng-template>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Card Title</ion-card-title>
+      </ion-card-header>
+      <ion-datetime value="2012-12-15T13:47:20.789"></ion-datetime>
+    </ion-card>
+  </ng-template>
+</ion-popover>
+
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="homeFeed">
+    <ion-tab-button tab="homeTab">
       <ion-icon name="newspaper-outline"></ion-icon>
-      <ion-label>Home</ion-label>
+      <ion-label>Upcoming</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="propertiesHome">
+    <ion-tab-button tab="propertiesTab">
       <ion-icon name="home"></ion-icon>
       <ion-label>Properites</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="scheduleHome">
+    <ion-tab-button tab="scheduleTab">
       <ion-icon name="calendar"></ion-icon>
       <ion-label>Schedule</ion-label>
     </ion-tab-button>
