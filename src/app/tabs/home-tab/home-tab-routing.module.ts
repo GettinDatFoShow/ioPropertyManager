@@ -33,14 +33,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'userProfile',
+        redirectTo: 'home',
         pathMatch: 'full'
       },
     ]
   },
   {
     path: '',
-    redirectTo: 'userProfile',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
 ];

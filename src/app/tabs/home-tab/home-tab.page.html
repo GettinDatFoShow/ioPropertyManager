@@ -1,8 +1,8 @@
 <ion-split-pane contentId="homeTabContent" [disable]="!paneEnabled">
   <ion-menu side="start" contentId="homeTabContent" menuId="homeTabMenu">
     <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>
+      <ion-toolbar color="tertiary">
+        <ion-title color="light">
           {{menuTitle}}
         </ion-title>
       </ion-toolbar>
@@ -12,6 +12,7 @@
       <ion-list>
         <ion-menu-toggle auto-hide="false" menu="homeTabMenu" *ngFor="let item of menuList">
           <ion-item [routerLink]="item.route" routerDirection="root" rounterLinkActive="active-item">
+            <ion-icon slot="end" [name]="item.icon" color="tertiary"></ion-icon>
             <ion-label>{{item.label}}</ion-label>
           </ion-item>
         </ion-menu-toggle>

@@ -2,9 +2,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button color="primary"  menu="propertiesTabMenu"></ion-menu-button>
+      <ion-menu-button color="tertiary"  menu="propertiesTabMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary" >
+    <ion-title color="tertiary" >
       Properties
     </ion-title>
   </ion-toolbar>
@@ -13,8 +13,8 @@
 <ion-content [fullscreen]="true">
 
   <ion-fab vertical="top" horizontal="end" edge slot="fixed" (click)="addProperty()">
-    <ion-fab-button>
-      <ion-icon name="add-outline"></ion-icon>
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add-outline" color="light"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 

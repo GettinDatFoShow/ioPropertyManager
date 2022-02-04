@@ -2,17 +2,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button color="primary" menu="scheduleTabMenu"></ion-menu-button>
+      <ion-menu-button color="tertiary" menu="scheduleTabMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">Schedule</ion-title>
+    <ion-title color="tertiary">Schedule</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
   <ion-fab vertical="top" horizontal="end" edge slot="fixed" (click)="addEvent()">
-    <ion-fab-button>
-      <ion-icon name="add-outline"></ion-icon>
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add-outline" color="light"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
