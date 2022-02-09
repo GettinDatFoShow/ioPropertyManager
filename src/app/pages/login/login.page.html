@@ -1,0 +1,60 @@
+<ion-header>
+  
+  <ion-toolbar>
+    <ion-title color="tertiary">
+      IoPropertyManager</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title >
+        Welcome!  
+      </ion-card-title>
+      <ion-card-subtitle >
+        Log in or Sign up 
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="credentialForm">
+        <ion-item>
+          <ion-input
+          placeholder="Email Address"
+          formControlName="email"
+          autofocus="true"
+          clearInput="true"
+          type="email">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+          <span *ngIf="email.errors?.required">Email is required</span>
+          <span *ngIf="email.errors?.email">Email is invalid</span>
+        </div>
+        <ion-item>
+          <ion-input
+          placeholder="Password"
+          formControlName="password"
+          autofocus="true"
+          clearInput="true"
+          type="password"
+          ></ion-input>
+        </ion-item>
+        <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+          <span *ngIf="password.errors?.required">Email is required</span>
+          <span *ngIf="password.errors?.minlength">Password must be 6 characters</span>
+        </div>
+      </form>
+    </ion-card-content>
+    <ion-card-footer>
+        <ion-button slot="start" (click)="signUp()" fill="solid" expand="full"> Sign Up 
+          <ion-icon slot="end"name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button slot="end" (click)="signIn()" fill="clear" expand="full" color="tertiary"> Sign In
+          <ion-icon slot="end" name="enter-outline"></ion-icon>
+        </ion-button>
+    </ion-card-footer>
+  </ion-card>
+ 
+</ion-content>

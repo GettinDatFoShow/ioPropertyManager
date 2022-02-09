@@ -17,10 +17,10 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: () => import('../../pages/settings/settings.module').then( m => m.SettingsPageModule)
       },
-      // {
-      //   path: 'subscriptionDetails',
-      //   loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
-      // },
+      {
+        path: 'subscriptionDetails',
+        loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
+      },
       {
         path: 'teamMembers',
         loadChildren: () => import('../../pages/team-members/team-members.module').then( m => m.TeamMembersPageModule),

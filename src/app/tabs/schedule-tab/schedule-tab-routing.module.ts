@@ -20,10 +20,10 @@ const routes: Routes = [
         path: 'teamMembers',
         loadChildren: () => import('../../pages/team-members/team-members.module').then( m => m.TeamMembersPageModule)
       },
-      // {
-      //   path: 'subscriptionDetails',
-      //   loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
-      // },
+      {
+        path: 'subscriptionDetails',
+        loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
+      },
       {
         path: 'userProfile',
         loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)

@@ -1,4 +1,4 @@
-<ion-split-pane contentId="propertiesTabContent" [disable]="!paneEnabled">
+<ion-split-pane contentId="propertiesTabContent" [disables]="!paneEnabled">
   <ion-menu contentId="propertiesTabContent" menuId="propertiesTabMenu">
     <ion-header>
       <ion-toolbar color="tertiary">
@@ -11,11 +11,14 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle auto-hide="false" menu="propertiesTabMenu" *ngFor="let item of menuList">
-          <ion-item [routerLink]="item.route"routerDirection="root" rounterLinkActive="active-item">
+          <ion-item *ngIf="(item.label !== 'Sign Out')" [routerLink]="item.route" routerDirection="root" rounterLinkActive="active-item">
             <ion-icon slot="end" [name]="item.icon" color="tertiary"></ion-icon>
             <ion-label>{{item.label}}</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+          <ion-item *ngIf="(item.label === 'Sign Out')" (click)="signOut()">
+            <ion-icon slot="end" [name]="item.icon" color="tertiary"></ion-icon>
+            <ion-label>{{item.label}}</ion-label>
+          </ion-item>
       </ion-list>
     </ion-content>
 
