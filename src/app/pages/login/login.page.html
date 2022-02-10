@@ -10,7 +10,7 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title >
+      <ion-card-title>
         Welcome!  
       </ion-card-title>
       <ion-card-subtitle >
@@ -46,15 +46,17 @@
           <span *ngIf="password.errors?.minlength">Password must be 6 characters</span>
         </div>
       </form>
+      <ion-item-divider color="clear"></ion-item-divider>
+      <ion-button slot="start" (click)="signUp()" fill="solid" expand="full"> Sign Up 
+        <ion-icon slot="end"name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" (click)="signIn()" fill="clear" expand="full" color="tertiary"> Sign In
+        <ion-icon slot="end" name="enter-outline"></ion-icon>
+      </ion-button>
     </ion-card-content>
-    <ion-card-footer>
-        <ion-button slot="start" (click)="signUp()" fill="solid" expand="full"> Sign Up 
-          <ion-icon slot="end"name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-button slot="end" (click)="signIn()" fill="clear" expand="full" color="tertiary"> Sign In
-          <ion-icon slot="end" name="enter-outline"></ion-icon>
-        </ion-button>
-    </ion-card-footer>
+    <!-- <ion-card-footer> -->
+
+    <!-- </ion-card-footer> -->
   </ion-card>
  
 </ion-content>
