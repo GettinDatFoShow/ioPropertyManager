@@ -1,23 +1,26 @@
 <ion-split-pane contentId="scheduleTabContent" [disabled]="!paneEnabled">
   <ion-menu contentId="scheduleTabContent" menuId="scheduleTabMenu">
     <ion-header>
-      <ion-toolbar color="tertiary">
+      <ion-toolbar color="dark">
         <ion-title color="light">
           {{menuTitle}}
         </ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
-      <ion-list>
-        <ion-menu-toggle auto-hide="false" menu="scheduleTabMenu" *ngFor="let item of menuList">
-          <ion-item *ngIf="(item.label !== 'Sign Out')" [routerLink]="item.route" routerDirection="root" rounterLinkActive="active-item">
-            <ion-icon slot="end" [name]="item.icon" color="tertiary"></ion-icon>
-            <ion-label>{{item.label}}</ion-label>
+    <ion-content color="light">
+      <ion-list >
+        <div id="image" slot="start">
+          <img src="assets/logo.png">
+        </div>
+        <ion-menu-toggle color="light" auto-hide="false" menu="scheduleTabMenu" *ngFor="let item of menuList">
+          <ion-item color="light" *ngIf="(item.label !== 'Sign Out')" [routerLink]="item.route" routerDirection="root" rounterLinkActive="active-item">
+            <ion-icon slot="end" [name]="item.icon" color="dark"></ion-icon>
+            <ion-label color="dark">{{item.label}}</ion-label>
           </ion-item>
-          <ion-item *ngIf="(item.label === 'Sign Out')" (click)="signOut()">
-            <ion-icon slot="end" [name]="item.icon" color="tertiary"></ion-icon>
-            <ion-label>{{item.label}}</ion-label>
+          <ion-item color="light" *ngIf="(item.label === 'Sign Out')" (click)="signOut()">
+            <ion-icon slot="end" [name]="item.icon" color="dark"></ion-icon>
+            <ion-label color="dark">{{item.label}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
