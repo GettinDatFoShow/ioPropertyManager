@@ -1,13 +1,7 @@
-export interface IoPmUser {
-    id?: string;
-    companyName: string;
-    joinDate: Date;
-    contactDetails?: ContactDetails[];
-    location?: any;
-    active: boolean;
-    membership?: any;
+export interface BusinessOwner extends User {
+    companyName?: string;
     properties?: Property[];
-    employees?: Employee[];
+    employees?: User[];
     extraInfo?: ExtraInfo[];
 }
 
@@ -22,31 +16,30 @@ export interface ContactDetails {
 export interface Property {
     id?: string;
     type?: string;
-    added: Date;
-    active: boolean;
-    propertyName: string;
+    added?: Date;
+    active?: boolean;
+    propertyName?: string;
     description?: string;
     extraInfo?: ExtraInfo[];
     location?: any;
     schedule?: any;
     homes?: Home[];
-    owners?: Owner[];
+    owners?: User[];
 }
 
 export interface Home {
     id?: string;
-    homeName: string
+    homeName?: string
     description?: string;
-    isRented: boolean;
-    renters?: Owner[];
+    isRented?: boolean;
+    renters?: User[];
     buildDate?: Date;
     roomCount?: number;
-
 }
 
 export interface Room {
     id?: string;
-    type: string;
+    type?: string;
     description?: string;
     items?: Item[];
 }
@@ -71,18 +64,22 @@ export interface Person {
     extraInfo?: ExtraInfo[];
 }
 
-export interface Owner {
-    id?: string;
-    personalInfo: Person;
+export interface User {
+    uid?: string;
+    signInEmail?: string;
+    personalInfo?: Person;
+    joinDate?: Date;
+    contactDetails?: ContactDetails[];
+    location?: any;
+    active?: boolean;
+    membership?: any;
 }
 
-export interface Employee {
-    id?: string;
-    personalInfo: Person;
+export interface Employee extends User {
     hireDate?: Date;
-    active?: boolean;
     schedule?: any;
 }
+
 
 export interface ExtraInfo {
     id?: string;

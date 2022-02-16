@@ -1,5 +1,7 @@
 {
   "name": "ioPropertyManager",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
