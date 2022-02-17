@@ -16,12 +16,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="">
-  <form id="form" [formGroup]="signUpForm">
+<ion-content>
 
+  <div id="header" >
+    <img *ngIf="!userSelection" src="assets/logo.png"/>
+    <h1> Sign Up </h1>
+  </div>
+
+  <form [formGroup]="signUpForm" >
     <ion-card>
-      <ion-card-header *ngIf="!userSelection">
-        <ion-card-title >
+      <ion-card-header>
+        <ion-card-title *ngIf="userSelection">
           Great! Quick question..
         </ion-card-title>
         <ion-card-subtitle>
@@ -46,45 +51,93 @@
 
     <ion-card *ngIf="userSelection">
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title *ngIf="!signUpForm.valid">
           Awesome!
         </ion-card-title>
-        <ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!signUpForm.valid">
           Now for some minor details..
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="signUpForm.valid">
+          Sign Up Details
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
+
         <ion-list>
-          <ion-item>
-            <ion-input 
-            color="dark"
-            placeholder="Sign in Email"
-            formControlName="email"
-            autofocus="true"
-            clearInput="true"
-            type="email">
-            </ion-input>
-          </ion-item >
           <ion-item>
             <ion-input 
             color="dark"
             placeholder="Name"
             formControlName="name"
-            autofocus="true"
+            autocomplete="name"
+            id="signUpForm"
             clearInput="true"
             type="text">
             </ion-input>
           </ion-item >
-          <ion-item class="ion-margin-bottom">
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Sign in Email"
+            formControl="email"
+            clearInput="true"
+            autocomplete="email"
+            type="email">
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input
+            color="dark"
+            placeholder="Password"
+            formControlName="password"
+            clearInput="true"
+            type="password"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+            color="dark"
+            placeholder="Confirm Password"
+            formControlName="confirm_password"
+            clearInput="true"
+            type="password"
+            ></ion-input>
+          </ion-item>
+          <!-- <div style='color:#ff7355' 
+            *ngIf="signUpForm.get(['passwords','password']).value != signUpForm.get(['passwords','confirm_password']).value && signUpForm.get(['passwords','confirm_password']).value != null">
+              Password does not match
+          </div> -->
+          <ion-item>
             <ion-input 
             color="dark"
             placeholder="Phone Number"
             formControlName="phone"
-            autofocus="true"
             clearInput="true"
-            type="phone">
+            autocomplete="tel"
+            type="tel">
             </ion-input>
           </ion-item >
+          <ion-item *ngIf="isOwner">
+            <ion-input 
+            color="dark"
+            placeholder="Company Name"
+            formControlName="companyName"
+            clearInput="true"
+            autocomplete="company"
+            type="text">
+            </ion-input>
+          </ion-item >
+          <ion-item *ngIf="!isOwner">
+            <ion-label>Employer</ion-label>
+            <ion-select interface="popover">
+              <ion-select-option 
+              *ngFor="let name of companyNames" 
+              clearInput="true"
+              formControlName="companyName"
+              [value]="name">{{name}}
+            </ion-select-option>
+            </ion-select>
+          </ion-item>
         </ion-list>
       </ion-card-content>
     </ion-card>

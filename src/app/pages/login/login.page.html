@@ -31,7 +31,6 @@
               color="dark"
               placeholder="Email Address"
               formControlName="email"
-              autofocus="true"
               clearInput="true"
               type="email">
               </ion-input>
@@ -41,12 +40,11 @@
               color="dark"
               placeholder="Password"
               formControlName="password"
-              autofocus="true"
               clearInput="true"
               type="password"
               ></ion-input>
             </ion-item>
-          <ion-button (click)="signIn()" shape="round" expand="block"> Sign In
+          <ion-button [disabled]="!credentialForm.valid" (click)="signIn()" shape="round" expand="block"> Sign In
             <ion-icon color="dark" slot="end" name="enter-outline"></ion-icon>
           </ion-button>
           <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
