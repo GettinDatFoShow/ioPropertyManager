@@ -1,9 +1,138 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sign-up</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+    <!-- <ion-title color="tertiary">
+      IoPropertyManager
+    </ion-title> -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/" color="primary">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" routerLink="/">
+        LOGIN
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="">
+  <form id="form" [formGroup]="signUpForm">
 
+    <ion-card>
+      <ion-card-header *ngIf="!userSelection">
+        <ion-card-title >
+          Great! Quick question..
+        </ion-card-title>
+        <ion-card-subtitle>
+          What type of user are you?
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-radio-group allowEmptySelection="false"  (ionChange)="userTypeSelection($event)">        
+            <ion-item>
+              <ion-label>Business Owner</ion-label>
+              <ion-radio  color="secondary" slot="end" value="owner"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Team Member</ion-label>
+              <ion-radio color="secondary" slot="end" value="teamMember"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="userSelection">
+      <ion-card-header>
+        <ion-card-title>
+          Awesome!
+        </ion-card-title>
+        <ion-card-subtitle>
+          Now for some minor details..
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Sign in Email"
+            formControlName="email"
+            autofocus="true"
+            clearInput="true"
+            type="email">
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Name"
+            formControlName="name"
+            autofocus="true"
+            clearInput="true"
+            type="text">
+            </ion-input>
+          </ion-item >
+          <ion-item class="ion-margin-bottom">
+            <ion-input 
+            color="dark"
+            placeholder="Phone Number"
+            formControlName="phone"
+            autofocus="true"
+            clearInput="true"
+            type="phone">
+            </ion-input>
+          </ion-item >
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <!-- <div id="header">
+    <h1> Login </h1>
+    <img src="assets/logo.png"/>
+  </div> -->
+
+  <!-- <form [formGroup]="credentialForm" id="form">
+      <ion-card color="dark" class="ion-no-margin">
+        <ion-card-content>
+            <ion-item class="ion-margin-bottom" color="medium">
+              <ion-input 
+              color="dark"
+              placeholder="Email Address"
+              formControlName="email"
+              autofocus="true"
+              clearInput="true"
+              type="email">
+              </ion-input>
+            </ion-item >
+            <ion-item class="ion-margin-bottom" color="medium">
+              <ion-input
+              color="dark"
+              placeholder="Password"
+              formControlName="password"
+              autofocus="true"
+              clearInput="true"
+              type="password"
+              ></ion-input>
+            </ion-item>
+          <ion-button (click)="signIn()" shape="round" expand="block"> Sign In
+            <ion-icon slot="end" name="enter-outline"></ion-icon>
+          </ion-button>
+          <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+            <span *ngIf="email.errors?.required">Email is required</span>
+            <span *ngIf="email.errors?.email">Email is invalid</span>
+          </div>
+          <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+            <span *ngIf="password.errors?.required">Email is required</span>
+            <span *ngIf="password.errors?.minlength">Password must be 6 characters</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+
+</form> -->
+ 
 </ion-content>

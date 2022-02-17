@@ -3,29 +3,30 @@
     <!-- <ion-title color="tertiary">
       IoPropertyManager
     </ion-title> -->
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-button color="primary">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-buttons slot="end">
-      <ion-button color="primary">
-        Sign Up
+      <ion-button color="primary" routerLink="/sign-up">
+        SIGN UP
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="">
+
   <div id="header">
-    <h1> Login </h1>
     <img src="assets/logo.png"/>
+    <h1> Login </h1>
   </div>
 
   <form [formGroup]="credentialForm" id="form">
-      <ion-card color="dark" class="ion-no-margin">
+      <ion-card color="clear" class="ion-no-margin">
         <ion-card-content>
-            <ion-item class="ion-margin-bottom" color="medium">
+            <ion-item class="ion-margin-bottom" color="light">
               <ion-input 
               color="dark"
               placeholder="Email Address"
@@ -35,7 +36,7 @@
               type="email">
               </ion-input>
             </ion-item >
-            <ion-item class="ion-margin-bottom" color="medium">
+            <ion-item class="ion-margin-bottom" color="light">
               <ion-input
               color="dark"
               placeholder="Password"
@@ -46,7 +47,7 @@
               ></ion-input>
             </ion-item>
           <ion-button (click)="signIn()" shape="round" expand="block"> Sign In
-            <ion-icon slot="end" name="enter-outline"></ion-icon>
+            <ion-icon color="dark" slot="end" name="enter-outline"></ion-icon>
           </ion-button>
           <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
             <span *ngIf="email.errors?.required">Email is required</span>

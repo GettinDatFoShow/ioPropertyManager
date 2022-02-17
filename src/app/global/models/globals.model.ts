@@ -1,3 +1,15 @@
+
+export interface User {
+    uid?: string;
+    signInEmail?: string;
+    personalInfo?: Person;
+    joinDate?: Date;
+    contactDetails?: ContactDetails[];
+    location?: any;
+    active?: boolean;
+    membership?: any;
+}
+
 export interface BusinessOwner extends User {
     companyName?: string;
     properties?: Property[];
@@ -5,6 +17,10 @@ export interface BusinessOwner extends User {
     extraInfo?: ExtraInfo[];
 }
 
+export interface Employee extends User {
+    hireDate?: Date;
+    schedule?: any;
+}
 export interface ContactDetails {
     id?: string;
     description?: string
@@ -63,23 +79,6 @@ export interface Person {
     contactDetails?: ContactDetails[];
     extraInfo?: ExtraInfo[];
 }
-
-export interface User {
-    uid?: string;
-    signInEmail?: string;
-    personalInfo?: Person;
-    joinDate?: Date;
-    contactDetails?: ContactDetails[];
-    location?: any;
-    active?: boolean;
-    membership?: any;
-}
-
-export interface Employee extends User {
-    hireDate?: Date;
-    schedule?: any;
-}
-
 
 export interface ExtraInfo {
     id?: string;

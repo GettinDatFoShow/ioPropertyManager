@@ -28,23 +28,23 @@ export class LoginPage implements OnInit {
     })
   }
 
-  async signUp() {
-    const loading = await this._loadingController.create();
-    await loading.present();
+  // async signUp() {
+  //   const loading = await this._loadingController.create();
+  //   await loading.present();
   
-    this._userService.signUp(this.credentialForm.value).then(user => {
-      loading.dismiss();
-      this._router.navigateByUrl('/tabs', {replaceUrl: true});
-    }, async err => {
-      loading.dismiss();
-      const alert = await this._alertController.create({
-        header: 'Sign up failed', 
-        message: err.message, 
-        buttons: ['OK']
-      });
-      await alert.present(); 
-    })
-  }
+  //   this._userService.signUp(this.credentialForm.value).then(user => {
+  //     loading.dismiss();
+  //     this._router.navigateByUrl('/tabs', {replaceUrl: true});
+  //   }, async err => {
+  //     loading.dismiss();
+  //     const alert = await this._alertController.create({
+  //       header: 'Sign up failed', 
+  //       message: err.message, 
+  //       buttons: ['OK']
+  //     });
+  //     await alert.present(); 
+  //   })
+  // }
 
   async signIn() {
     const loading = await this._loadingController.create();
@@ -61,6 +61,10 @@ export class LoginPage implements OnInit {
       });
       await alert.present(); 
     });
+  }
+
+  signUp() {
+    this._router.navigateByUrl('/sign-up', { replaceUrl: true })
   }
 
   get email() {
