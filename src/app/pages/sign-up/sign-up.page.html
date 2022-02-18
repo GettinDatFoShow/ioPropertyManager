@@ -26,7 +26,7 @@
   <form [formGroup]="signUpForm" >
     <ion-card>
       <ion-card-header>
-        <ion-card-title *ngIf="userSelection">
+        <ion-card-title *ngIf="!userSelection">
           Great! Quick question..
         </ion-card-title>
         <ion-card-subtitle>
@@ -35,7 +35,9 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-radio-group allowEmptySelection="false"  (ionChange)="userTypeSelection($event)">        
+          <ion-radio-group
+            formControlName="membership"
+            allowEmptySelection="false"  (ionChange)="userTypeSelection($event)">        
             <ion-item>
               <ion-label>Business Owner</ion-label>
               <ion-radio  color="secondary" slot="end" value="owner"></ion-radio>
@@ -72,14 +74,16 @@
             autocomplete="name"
             id="signUpForm"
             clearInput="true"
-            type="text">
+            type="text"
+            (ionChange)="userNameInput($event)"
+            >
             </ion-input>
           </ion-item >
           <ion-item>
             <ion-input 
             color="dark"
             placeholder="Sign in Email"
-            formControl="email"
+            formControlName="signInEmail"
             clearInput="true"
             autocomplete="email"
             type="email">
@@ -98,7 +102,7 @@
             <ion-input
             color="dark"
             placeholder="Confirm Password"
-            formControlName="confirm_password"
+            formControlName="confirmPassword"
             clearInput="true"
             type="password"
             ></ion-input>
@@ -129,13 +133,14 @@
           </ion-item >
           <ion-item *ngIf="!isOwner">
             <ion-label>Employer</ion-label>
-            <ion-select interface="popover">
+            <ion-select interface="popover"
+            clearInput="true"
+            (ionChange)="userEmployerInput($event)"
+            formControlName="companyName">
               <ion-select-option 
-              *ngFor="let name of companyNames" 
-              clearInput="true"
-              formControlName="companyName"
-              [value]="name">{{name}}
-            </ion-select-option>
+                *ngFor="let name of companyNames" 
+                [value]="name">{{name}}
+              </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
@@ -143,49 +148,90 @@
     </ion-card>
   </form>
 
-  <!-- <div id="header">
-    <h1> Login </h1>
-    <img src="assets/logo.png"/>
-  </div> -->
+  <form [formGroup]="companyForm" *ngIf="isOwner && signUpForm.valid">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title *ngIf="!companyForm.valid">
+          Tell us about {{signUpForm.value.companyName}}
+        </ion-card-title>
+        <ion-card-subtitle>
+          Company Details..
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
 
-  <!-- <form [formGroup]="credentialForm" id="form">
-      <ion-card color="dark" class="ion-no-margin">
-        <ion-card-content>
-            <ion-item class="ion-margin-bottom" color="medium">
-              <ion-input 
-              color="dark"
-              placeholder="Email Address"
-              formControlName="email"
-              autofocus="true"
-              clearInput="true"
-              type="email">
-              </ion-input>
-            </ion-item >
-            <ion-item class="ion-margin-bottom" color="medium">
-              <ion-input
-              color="dark"
-              placeholder="Password"
-              formControlName="password"
-              autofocus="true"
-              clearInput="true"
-              type="password"
-              ></ion-input>
-            </ion-item>
-          <ion-button (click)="signIn()" shape="round" expand="block"> Sign In
-            <ion-icon slot="end" name="enter-outline"></ion-icon>
-          </ion-button>
-          <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
-            <span *ngIf="email.errors?.required">Email is required</span>
-            <span *ngIf="email.errors?.email">Email is invalid</span>
-          </div>
-          <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
-            <span *ngIf="password.errors?.required">Email is required</span>
-            <span *ngIf="password.errors?.minlength">Password must be 6 characters</span>
-          </div>
-        </ion-card-content>
-      </ion-card>
+        <ion-list>
+          <ion-item>
+            <ion-input 
+            placeholder="Contact Email"
+            formControlName="email"
+            id="companyForm"
+            clearInput="true"
+            type="email">
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Company Phone"
+            formControlName="phone"
+            clearInput="true"
+            type="tel">
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Website"
+            formControlName="website"
+            clearInput="true"
+            type="text">
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input
+            color="dark"
+            placeholder="Address"
+            formControlName="address"
+            clearInput="true"
+            type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+            color="dark"
+            placeholder="City"
+            formControlName="city"
+            clearInput="true"
+            type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="state"
+            formControlName="state"
+            clearInput="true"
+            type="text">
+            </ion-input>
+          </ion-item >
+          <ion-item *ngIf="isOwner">
+            <ion-input 
+            color="dark"
+            placeholder="Zip Code"
+            formControlName="zip"
+            clearInput="true"
+            type="number">
+            </ion-input>
+          </ion-item >
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
 
+  </form>
 
-</form> -->
- 
+  <ion-button *ngIf="this.userSelection" [disabled]="!(signUpForm.valid && !this.isOwner) && !(signUpForm.valid && this.isOwner && this.companyForm.valid)" (click)="signUp()" shape="square" expand="block"> Sign Up
+    <ion-icon color="dark" slot="end" name="enter-outline"></ion-icon>
+  </ion-button>
+  
 </ion-content>

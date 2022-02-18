@@ -4,17 +4,23 @@ export interface User {
     signInEmail?: string;
     personalInfo?: Person;
     joinDate?: Date;
-    contactDetails?: ContactDetails[];
     location?: any;
     active?: boolean;
     membership?: any;
 }
 
-export interface BusinessOwner extends User {
-    companyName?: string;
+export interface Owner extends User {
+    company?: Company;
+    extraInfo?: ExtraInfo[];
+}
+
+export interface Company {
+    id?: string;
+    contactDetails?: ContactDetails[];
+    location?: any;
+    addedDate?: Date;
     properties?: Property[];
     employees?: User[];
-    extraInfo?: ExtraInfo[];
 }
 
 export interface Employee extends User {

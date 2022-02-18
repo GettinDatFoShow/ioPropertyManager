@@ -35,28 +35,49 @@ export class SignUpPage implements OnInit {
       companyName: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.minLength(10)]],
       password: ['', [Validators.required, Validators.minLength(10)]],
-      confirm_password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
     })
   }
 
-  userTypeSelection(event: CustomEvent) {
+  userNameInput(event: any) {
+    console.log(event);
+    console.log(this.signUpForm)
+  }
+
+  userEmployerInput(event: any) {
+    console.log(event);
+    this.signUpForm.setValue['companyName'] = event.detail.value;
+    console.log(this.signUpForm)
+  }
+
+  userTypeSelection(event: any) {
     console.log(event)
     this.isOwner = event.detail.value === 'owner';
     this.userSelection = true
 
-    this.signUpForm.setValue({membership: event.detail.value});
+    this.signUpForm.value['membership'] = event.detail.value;
     console.log(this.signUpForm)
     if (this.isOwner) {
       this.companyForm = this._fb.group({
-
+        email: ['', [Validators.required, Validators.email]],
+        zip: ['', [Validators.required]],
+        address: ['', [Validators.required]],
+        state: ['', [Validators.required]],
+        phone: ['', [Validators.required, Validators.minLength(10)]],
+        city: ['', [Validators.required]],
+        website: [''],
       })
     }
   }
 
   passwordConfirming(control: AbstractControl): { invalid: boolean } {
-    if (control.get('password').value !== control.get('confirm_password').value) {
+    if (control.get('password').value !== control.get('confirmPassword').value) {
         return {invalid: true};
     }
+  }
+
+  signUp() {
+    alert('SIGN UP CLICK!!!')
   }
 
   get signUpEmail() {
@@ -64,11 +85,11 @@ export class SignUpPage implements OnInit {
   }
 
   get password() {
-    return this.signUpForm.get('passwords').get('password');
+    return this.signUpForm.get('password');
   }
 
   get confirm_password() {
-    return this.signUpForm.get('passwords').get('confirm_pasword')
+    return this.signUpForm.get('confirmPasword')
   }
 
 }
