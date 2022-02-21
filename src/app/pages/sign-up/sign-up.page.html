@@ -66,23 +66,23 @@
       <ion-card-content>
 
         <ion-list>
+          <ion-text color="medium">* denotes required field</ion-text>
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="Name"
+            placeholder="Name*"
             formControlName="name"
             autocomplete="name"
             id="signUpForm"
             clearInput="true"
             type="text"
-            (ionChange)="userNameInput($event)"
             >
             </ion-input>
           </ion-item >
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="Sign in Email"
+            placeholder="Sign in Email*"
             formControlName="signInEmail"
             clearInput="true"
             autocomplete="email"
@@ -92,29 +92,36 @@
           <ion-item>
             <ion-input
             color="dark"
-            placeholder="Password"
+            placeholder="Password*"
             formControlName="password"
             clearInput="true"
             type="password"
             ></ion-input>
           </ion-item>
+          <div style='color:#ff7355' 
+            *ngIf="passwordWarningCheck()">
+              Password must contain an Uppercase.
+              Password must contain a Number.
+              Password must contain a Lowercase.
+              Password minmum lenght must be 8 characters.
+          </div>
           <ion-item>
             <ion-input
             color="dark"
-            placeholder="Confirm Password"
+            placeholder="Confirm Password*"
             formControlName="confirmPassword"
             clearInput="true"
             type="password"
             ></ion-input>
           </ion-item>
-          <!-- <div style='color:#ff7355' 
-            *ngIf="signUpForm.get(['passwords','password']).value != signUpForm.get(['passwords','confirm_password']).value && signUpForm.get(['passwords','confirm_password']).value != null">
+          <div style='color:#ff7355' 
+            *ngIf="!confirmPassword()">
               Password does not match
-          </div> -->
+          </div>
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="Phone Number"
+            placeholder="Phone Number*"
             formControlName="phone"
             clearInput="true"
             autocomplete="tel"
@@ -124,7 +131,7 @@
           <ion-item *ngIf="isOwner">
             <ion-input 
             color="dark"
-            placeholder="Company Name"
+            placeholder="Company Name*"
             formControlName="companyName"
             clearInput="true"
             autocomplete="company"
@@ -136,7 +143,7 @@
             <ion-select interface="popover"
             clearInput="true"
             (ionChange)="userEmployerInput($event)"
-            formControlName="companyName">
+            formControlName="companyName*">
               <ion-select-option 
                 *ngFor="let name of companyNames" 
                 [value]="name">{{name}}
@@ -148,7 +155,7 @@
     </ion-card>
   </form>
 
-  <form [formGroup]="companyForm" *ngIf="isOwner && signUpForm.valid">
+  <form [formGroup]="companyForm" *ngIf="isOwner && signUpForm.valid && confirmPassword()">
     <ion-card>
       <ion-card-header>
         <ion-card-title *ngIf="!companyForm.valid">
@@ -163,7 +170,7 @@
         <ion-list>
           <ion-item>
             <ion-input 
-            placeholder="Contact Email"
+            placeholder="Contact Email*"
             formControlName="email"
             id="companyForm"
             clearInput="true"
@@ -173,7 +180,7 @@
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="Company Phone"
+            placeholder="Company Phone*"
             formControlName="phone"
             clearInput="true"
             type="tel">
@@ -191,7 +198,7 @@
           <ion-item>
             <ion-input
             color="dark"
-            placeholder="Address"
+            placeholder="Address*"
             formControlName="address"
             clearInput="true"
             type="text"
@@ -200,7 +207,7 @@
           <ion-item>
             <ion-input
             color="dark"
-            placeholder="City"
+            placeholder="City*"
             formControlName="city"
             clearInput="true"
             type="text"
@@ -209,7 +216,7 @@
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="state"
+            placeholder="State*"
             formControlName="state"
             clearInput="true"
             type="text">
@@ -218,7 +225,7 @@
           <ion-item *ngIf="isOwner">
             <ion-input 
             color="dark"
-            placeholder="Zip Code"
+            placeholder="Zip Code*"
             formControlName="zip"
             clearInput="true"
             type="number">

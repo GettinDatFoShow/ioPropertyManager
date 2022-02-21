@@ -10,13 +10,13 @@ export interface User {
 }
 
 export interface Owner extends User {
-    company?: Company;
+    companyId?: string;
     extraInfo?: ExtraInfo[];
 }
 
 export interface Company {
-    id?: string;
-    contactDetails?: ContactDetails[];
+    cid?: string;
+    contactDetails?: ContactDetails;
     location?: any;
     addedDate?: Date;
     properties?: Property[];
@@ -28,11 +28,11 @@ export interface Employee extends User {
     schedule?: any;
 }
 export interface ContactDetails {
-    id?: string;
     description?: string
     phone?: number;
     email?: string;
     hours?: any;
+    website?: string;
 }
 
 export interface Property {
