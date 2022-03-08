@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
+import { collection, DocumentReference  } from 'firebase/firestore';
+import { Observable } from 'rxjs';
 import { Company } from '../../global/models/globals.model';
 
 @Injectable({
@@ -9,22 +11,37 @@ export class CompanyService {
 
   COMPANIES_KEY = 'Companies';
 
-  constructor(private _firestore: AngularFirestore) { }
+  constructor(private _firestore: Firestore) { }
 
-  createNew(company: Company)  {
-    return this._firestore.collection(this.COMPANIES_KEY).add(company);
+  createNew(company: Company): Promise<DocumentReference> {
+    const companiesRef = collection(this._firestore, this.COMPANIES_KEY);
+    return addDoc(companiesRef, company);
   }
 
-  getCompanies() {
-    return this._firestore.collection(this.COMPANIES_KEY);
+  getCompany(cid: string): Observable<Company> {
+    const companiesRef = collection(this._firestore, `${this.COMPANIES_KEY}/${cid}`);
+    return collectionData(companiesRef, {idField: 'cid'}) as Observable<Company>;
   }
 
-  updateCompany(company: Company) {
-    
+  getCompanies(): Observable<Company[]> {
+    const companyDocRef = doc(this._firestore, this.COMPANIES_KEY);
+    return docData(companyDocRef, {idField: 'cid'}) as Observable<Company[]>;
   }
 
-  deleteCompany(companyKey: string) {
-
+  updateCompany(company: Company): Promise<any> {
+    const companyDocRef = doc(this._firestore, `${this.COMPANIES_KEY}/${company.cid}`);
+    return updateDoc(companyDocRef, {
+      contactDetails: company.contactDetails,
+      location: company.location,
+      properties: company.properties,
+      employees: company.employees
+    });
   }
+
+  deleteCompany(companyKey: string): Promise<any> {
+    const companyDocRef = doc(this._firestore, `${this.COMPANIES_KEY}/${companyKey}`);
+    return deleteDoc(companyDocRef);
+  }
+
 
 }
