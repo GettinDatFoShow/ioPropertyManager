@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { CompanyService } from '../../services/company/company.service';
 import { ContactDetails, Owner, Company } from '../../global/models/globals.model';
 
 @Component({
@@ -14,9 +15,13 @@ export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
   companyForm: FormGroup;
   companyNames: string[] = ['KB Homes'];
+  company: Company = null;
   
-  constructor(private _fb: FormBuilder) { 
-    
+  constructor(private _fb: FormBuilder, private _companyService: CompanyService) { 
+    this._companyService.getCompanies().subscribe(res => {
+      console.log('COMPANIES');
+      console.log(res);
+    })
   }
 
   ngOnInit() {
@@ -79,13 +84,26 @@ export class SignUpPage implements OnInit {
 
   async signUp() {
     if (this.isOwner) {
-      const company: Company = {
+      this.company = {
         contactDetails: <ContactDetails> {
           phone: this.companyForm.get('phone').value,
           email: this.companyForm.get('email').value,
           website: this.companyForm.get('website').value
-        }
+        },
+        location: {
+          address: this.companyForm.get('address').value,
+          city: this.companyForm.get('city').value,
+          state: this.companyForm.get('state').value,
+          zip: this.companyForm.get('zip').value
+        },
+        addedDate: new Date(),
+        properties: [],
+        employees: []
       }
+      await this.addCompany(this.company).then( ref => {
+        console.log(ref);
+        this.company.cid = ref.id;
+      })
       const newUser: Owner = {
 
       }
@@ -112,6 +130,10 @@ export class SignUpPage implements OnInit {
     console.log(this.signUpForm);
     console.log(this.companyForm);
     alert('SIGN UP CLICK!!!')
+  }
+
+  async addCompany(company: Company) {
+    return await this._companyService.createNew(company)
   }
 
   get signUpEmail() {
