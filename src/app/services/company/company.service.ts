@@ -19,13 +19,13 @@ export class CompanyService {
   }
 
   getCompany(cid: string): Observable<Company> {
-    const companiesRef = collection(this._firestore, `${this.COMPANIES_KEY}/${cid}`);
-    return collectionData(companiesRef, {idField: 'cid'}) as Observable<Company>;
+    const companyDocRef = doc(this._firestore, `${this.COMPANIES_KEY}/${cid}`);
+    return docData(companyDocRef, {idField: 'cid'}) as Observable<Company>;
   }
 
   getCompanies(): Observable<Company[]> {
-    const companyDocRef = doc(this._firestore, this.COMPANIES_KEY);
-    return docData(companyDocRef, {idField: 'cid'}) as Observable<Company[]>;
+    const companiesRef = collection(this._firestore, this.COMPANIES_KEY);
+    return collectionData(companiesRef, {idField: 'cid'}) as Observable<Company[]>;
   }
 
   updateCompany(company: Company): Promise<any> {
