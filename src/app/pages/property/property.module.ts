@@ -8,6 +8,7 @@ import { PropertyPageRoutingModule } from './property-routing.module';
 
 import { PropertyPage } from './property.page';
 import { SharedComponentsModule } from 'src/app/components/shared-components/shared-components.module';
+import { AddPropertyComponent } from './add-property/add-property.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import { SharedComponentsModule } from 'src/app/components/shared-components/sha
     PropertyPageRoutingModule,
     SharedComponentsModule
   ],
-  declarations: [PropertyPage]
+  declarations: [
+    PropertyPage,
+    AddPropertyComponent
+  ]
 })
 export class PropertyPageModule {}

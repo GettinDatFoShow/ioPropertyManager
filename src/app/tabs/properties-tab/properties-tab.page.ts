@@ -20,7 +20,11 @@ export class PropertiesTabPage implements OnInit {
     { label: 'Sign Out', route: '/signOut',  icon: 'log-out-outline'}
   ]
 
-  constructor(private _menuController: MenuController, private userService: UserService, private _router: Router) { }
+  constructor(
+    private _menuController: MenuController, 
+    private userService: UserService, 
+    private _router: Router
+    ) { }
 
   ngOnInit() {
   }

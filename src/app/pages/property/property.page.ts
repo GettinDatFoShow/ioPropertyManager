@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddPropertyComponent } from './add-property/add-property.component';
 
 @Component({
   selector: 'iopm-property',
@@ -7,13 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyPage implements OnInit {
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
 
-  addProperty() {
-    alert('Add Property Clicked!')
+  async addProperty() {
+    const modal = await this.modalController.create({
+      component: AddPropertyComponent,
+    });
+    return await modal.present();
   }
 
 }
