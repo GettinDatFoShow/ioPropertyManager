@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CompanyService } from '../../services/company/company.service';
-import { ContactDetails, Owner, Company } from '../../global/models/globals.model';
+import { ContactDetails, Company, Person } from '../../global/models/globals.model';
+import { User } from '../../global/models/globals.model';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'iopm-sign-up',
@@ -14,10 +18,18 @@ export class SignUpPage implements OnInit {
   isOwner: boolean = null;
   public signUpForm: FormGroup;
   companyForm: FormGroup;
-  companyNames: string[] = ['KB Homes'];
+  companies: Company[] = [];
   company: Company = null;
+  user: User = null;
   
-  constructor(private _fb: FormBuilder, private _companyService: CompanyService) { 
+  constructor(
+    private _fb: FormBuilder, 
+    private _companyService: CompanyService, 
+    private _loadingController: LoadingController,
+    private _userService: UserService,
+    private _router: Router,
+    private _alertController: AlertController
+    ) { 
     this._companyService.getCompanies().subscribe(res => {
       console.log('COMPANIES');
       console.log(res);
@@ -27,28 +39,33 @@ export class SignUpPage implements OnInit {
   ngOnInit() {
     this.signUpForm = this._fb.group({
       signInEmail: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required]],
-      membership: ['', [Validators.required]],
+      first: ['', [Validators.required]],
+      last: ['', [Validators.required]],
+      memberType: ['', [Validators.required]],
       companyName: ['', [Validators.required]],
+      company: [''],
       phone: ['', [Validators.required, Validators.minLength(8)]],
+      contactType: ['', [Validators.required]],
       password: ['', [Validators.required, this.createPasswordStrengthValidator(), Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     })
   }
 
   userEmployerInput(event: any) {
-    this.signUpForm.setValue['companyName'] = event.detail.value;
+    this.company = event.detail.value;
+    this.signUpForm.setValue({companyName: this.company.name})
+    this.signUpForm.setValue({company: this.company})
   }
 
   userTypeSelection(event: any) {
     this.isOwner = event.detail.value === 'owner';
     this.userSelection = true
-    this.signUpForm.value['membership'] = event.detail.value;
+    this.signUpForm.value['memberType'] = event.detail.value;
     if (this.isOwner) {
       this.companyForm = this._fb.group({
         email: ['', [Validators.email]],
         zip: ['', [Validators.required]],
-        address: ['', [Validators.required]],
+        street: ['', [Validators.required]],
         state: ['', [Validators.required]],
         phone: ['', [Validators.required, Validators.minLength(8)]],
         city: ['', [Validators.required]],
@@ -83,6 +100,24 @@ export class SignUpPage implements OnInit {
   }
 
   async signUp() {
+    
+    const loading = await this._loadingController.create();
+    await loading.present();
+
+    this.user = {
+        signInEmail: this.signUpForm.get('signInEmail').value,
+        joinDate: new Date(),
+        active: true,
+        isOwner: this.isOwner,
+        personalInfo: <Person> {
+          first: this.signUpForm.get('first').value,
+          last: this.signUpForm.get('last').value,
+          contactDetails: [{
+            phone: this.signUpForm.get('phone').value,
+            email: this.signUpForm.get('signInEmail').value,
+          }]
+        }
+    }
     if (this.isOwner) {
       this.company = {
         contactDetails: <ContactDetails> {
@@ -91,7 +126,7 @@ export class SignUpPage implements OnInit {
           website: this.companyForm.get('website').value
         },
         location: {
-          address: this.companyForm.get('address').value,
+          street: this.companyForm.get('street').value,
           city: this.companyForm.get('city').value,
           state: this.companyForm.get('state').value,
           zip: this.companyForm.get('zip').value
@@ -103,33 +138,29 @@ export class SignUpPage implements OnInit {
       await this.addCompany(this.company).then( ref => {
         console.log(ref);
         this.company.cid = ref.id;
+        this.user.companyId = this.company.cid;
       })
-      const newUser: Owner = {
 
-      }
     } else {
-
+      this.user.companyId = this.company.cid;
     }
 
-    // const loading = await this._loadingController.create();
-    // await loading.present();
-  
-    // this._userService.signUp(this.credentialForm.value).then(user => {
-    //   loading.dismiss();
-    //   this._router.navigateByUrl('/tabs', {replaceUrl: true});
-    // }, async err => {
-    //   loading.dismiss();
-    //   const alert = await this._alertController.create({
-    //     header: 'Sign up failed', 
-    //     message: err.message, 
-    //     buttons: ['OK']
-    //   });
-    //   await alert.present(); 
-    // })
-
-    console.log(this.signUpForm);
-    console.log(this.companyForm);
-    alert('SIGN UP CLICK!!!')
+    await this._userService.signUp(this.signUpForm.value).then(async res => {
+      console.log(res);
+      this.user.uid = res.user.uid;
+      await this._userService.createUser(this.user).then(res=>{
+        loading.dismiss();
+        this._router.navigateByUrl('/tabs', {replaceUrl: true});
+      })
+    }, async err => {
+      loading.dismiss();
+      const alert = await this._alertController.create({
+        header: 'Sign up failed', 
+        message: err.message, 
+        buttons: ['OK']
+      });
+      await alert.present(); 
+    })
   }
 
   async addCompany(company: Company) {

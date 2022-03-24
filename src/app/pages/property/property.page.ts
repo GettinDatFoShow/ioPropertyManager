@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddPropertyComponent } from './add-property/add-property.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'iopm-property',
   templateUrl: './property.page.html',
   styleUrls: ['./property.page.scss'],
 })
-export class PropertyPage implements OnInit {
+export class PropertyPage {
 
-  constructor(public modalController: ModalController) { }
+  constructor(public popoverController: PopoverController) {}
 
-  ngOnInit() {
-  }
-
-  async addProperty() {
-    const modal = await this.modalController.create({
+  async addProperty(ev: any) {
+    const popover = await this.popoverController.create({
       component: AddPropertyComponent,
+      // cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
     });
-    return await modal.present();
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
 }

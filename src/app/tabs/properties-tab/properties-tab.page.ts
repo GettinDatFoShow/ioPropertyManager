@@ -36,6 +36,7 @@ export class PropertiesTabPage implements OnInit {
   ionViewWillLeave() {
     this.paneEnabled = false;
   }
+  
   signOut() {
     this.userService.signOut().then( () => 
       this._router.navigateByUrl('/', { replaceUrl: true })

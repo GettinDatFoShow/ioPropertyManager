@@ -4,18 +4,25 @@ export interface User {
     signInEmail?: string;
     personalInfo?: Person;
     joinDate?: Date;
-    location?: any;
+    location?: Location;
     active?: boolean;
+    isOwner?: boolean;
     membership?: any;
-}
-
-export interface Owner extends User {
     companyId?: string;
     extraInfo?: ExtraInfo[];
 }
 
+export interface Location {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    geo?: string;
+}
+
 export interface Company {
     cid?: string;
+    name?: string;
     contactDetails?: ContactDetails;
     location?: any;
     addedDate?: Date;
@@ -28,7 +35,7 @@ export interface Employee extends User {
     schedule?: any;
 }
 export interface ContactDetails {
-    description?: string
+    contactType?: string
     phone?: number;
     email?: string;
     hours?: any;
@@ -46,7 +53,7 @@ export interface Property {
     location?: any;
     schedule?: any;
     homes?: Home[];
-    owners?: User[];
+    owners?: Person[];
 }
 
 export interface Home {
@@ -93,7 +100,6 @@ export interface ExtraInfo {
 }
 
 export interface Name {
-    id?: string;
     first?: string;
     middle?: string;
     last?: string;

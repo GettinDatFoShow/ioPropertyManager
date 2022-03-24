@@ -36,7 +36,7 @@
       <ion-card-content>
         <ion-list>
           <ion-radio-group
-            formControlName="membership"
+            formControlName="memberType"
             allowEmptySelection="false"  (ionChange)="userTypeSelection($event)">        
             <ion-item>
               <ion-label>Business Owner</ion-label>
@@ -70,8 +70,20 @@
           <ion-item>
             <ion-input 
             color="dark"
-            placeholder="Name*"
-            formControlName="name"
+            placeholder="First*"
+            formControlName="first"
+            autocomplete="name"
+            id="signUpForm"
+            clearInput="true"
+            type="text"
+            >
+            </ion-input>
+          </ion-item >
+          <ion-item>
+            <ion-input 
+            color="dark"
+            placeholder="Last*"
+            formControlName="last"
             autocomplete="name"
             id="signUpForm"
             clearInput="true"
@@ -128,6 +140,22 @@
             type="tel">
             </ion-input>
           </ion-item >
+          <ion-radio-group
+          formControlName="contactType"
+          allowEmptySelection="false" *ngIf="signUpForm.get('phone').dirty">        
+          <ion-item>
+            <ion-label>Home</ion-label>
+            <ion-radio  color="secondary" slot="end" value="home"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Cell</ion-label>
+            <ion-radio color="secondary" slot="end" value="cell"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Work</ion-label>
+            <ion-radio color="secondary" slot="end" value="work"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
           <ion-item *ngIf="isOwner">
             <ion-input 
             color="dark"
@@ -143,10 +171,10 @@
             <ion-select interface="popover"
             clearInput="true"
             (ionChange)="userEmployerInput($event)"
-            formControlName="companyName*">
+            formControlName="company">
               <ion-select-option 
-                *ngFor="let name of companyNames" 
-                [value]="name">{{name}}
+                *ngFor="let company of companies" 
+                [value]="company">{{company.name}}
               </ion-select-option>
             </ion-select>
           </ion-item>
@@ -198,8 +226,8 @@
           <ion-item>
             <ion-input
             color="dark"
-            placeholder="Address*"
-            formControlName="address"
+            placeholder="Street*"
+            formControlName="street"
             clearInput="true"
             type="text"
             ></ion-input>
