@@ -27,12 +27,25 @@ export class PropertyInfoService {
     return docData(propertyRef, { idField: 'id' }) as Observable<Property>;
   }
 
-  updateProperty() {
-
+  updateProperty(property: Property) {
+    const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${property.id}`);
+    return updateDoc(propertyRef, {
+      propertyType: property.type,
+      added: property.added,
+      active: true,
+      propertyName: property.propertyName,
+      description: property.description,
+      extraInfo: property.extraInfo,
+      location: property.location,
+      schedule: property.schedule,
+      homes: property.homes,
+      owners: property.owners
+    })
   }
 
-  removeProperty() {
-
+  removeProperty(pid: string) {
+    const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${pid}`);
+    return deleteDoc(propertyRef);
   }
 
 }

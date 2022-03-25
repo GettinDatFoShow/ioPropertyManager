@@ -64,4 +64,12 @@ export class UserService {
     });
   }  
 
+  setUser(user: User) {
+    this.currentUser = user;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
 }

@@ -24,7 +24,7 @@ export interface Company {
     cid?: string;
     name?: string;
     contactDetails?: ContactDetails;
-    location?: any;
+    location?: Location;
     addedDate?: Date;
     properties?: Property[];
     employees?: User[];
@@ -50,7 +50,7 @@ export interface Property {
     propertyName?: string;
     description?: string;
     extraInfo?: ExtraInfo[];
-    location?: any;
+    location?: Location;
     schedule?: any;
     homes?: Home[];
     owners?: Person[];

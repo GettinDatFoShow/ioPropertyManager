@@ -12,7 +12,7 @@
   </ion-fab>
 </ion-header>
 <ion-content>
-
+  <form [formGroup]="propertyForm" >
   <ion-card>
   
     <ion-card-header>
@@ -21,26 +21,73 @@
     </ion-card-header>
       <ion-card-content>
   
-      <ion-item href="#" class="ion-activated">
-        <ion-icon name="wifi" slot="start"></ion-icon>
-        <ion-label>Card Link Item 1 activated</ion-label>
-      </ion-item>
-      
-      <ion-item href="#">
-        <ion-icon name="wine" slot="start"></ion-icon>
-        <ion-label>Card Link Item 2</ion-label>
-      </ion-item>
-      
-      <ion-item class="ion-activated">
-        <ion-icon name="warning" slot="start"></ion-icon>
-        <ion-label>Card Button Item 1 activated</ion-label>
-      </ion-item>
-      
-      <ion-item>
-        <ion-icon name="walk" slot="start"></ion-icon>
-        <ion-label>Card Button Item 2</ion-label>
-      </ion-item>
+        <ion-item>
+          <ion-input 
+          placeholder="Appt, Home, Duplex, ect.."
+          formControlName="propertyType"
+          id="propertyType"
+          clearInput="true">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="Property Name"
+          formControlName="name"
+          id="propertyName"
+          clearInput="true">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="Street"
+          formControlName="street"
+          id="street"
+          clearInput="true">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="City"
+          formControlName="city"
+          id="city"
+          clearInput="true">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="State"
+          formControlName="state"
+          id="state"
+          clearInput="true">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="Zip"
+          formControlName="zip"
+          id="zip"
+          clearInput="true"
+          type="number">
+          </ion-input>
+        </ion-item >
+
+        <ion-item>
+          <ion-input 
+          placeholder="Any Extra Description.."
+          formControlName="description"
+          id="companyForm"
+          clearInput="true"
+          type="email">
+          </ion-input>
+        </ion-item >
+
     </ion-card-content>
     
   </ion-card>
+  </form>
 </ion-content>

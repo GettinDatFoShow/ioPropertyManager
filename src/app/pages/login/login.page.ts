@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { CompanyService } from 'src/app/services/company/company.service';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
     private _router: Router,
     private _alertController: AlertController,
     private _loadingController: LoadingController,
-    private _userService: UserService
+    private _userService: UserService,
+    private _companyService: CompanyService
     ) { }
 
   ngOnInit() {
