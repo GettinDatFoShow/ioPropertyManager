@@ -5,18 +5,18 @@
       Add Property
     </ion-title>
   </ion-toolbar>
-  <ion-fab vertical="bottom" horizontal="end" edge (click)="close()">
+  <!-- <ion-fab vertical="bottom" horizontal="end" edge (click)="close()">
     <ion-fab-button color="dark">
       <ion-icon name="close-outline" color="light"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-header>
 <ion-content>
   <form [formGroup]="propertyForm" >
   <ion-card>
   
     <ion-card-header>
-      <ion-card-subtitle>New Property Details</ion-card-subtitle>
+      <ion-card-subtitle color="dark">New Property Details</ion-card-subtitle>
       <!-- <ion-card-title>Fill out the details below</ion-card-title> -->
     </ion-card-header>
       <ion-card-content>
@@ -87,7 +87,17 @@
         </ion-item >
 
     </ion-card-content>
-    
   </ion-card>
+  
+  <ion-footer>
+    <ion-button color="dark" size="small" [disabled]="!propertyForm.valid" (click)="addProperty()" expand="block"> 
+      Create
+      <!-- <ion-icon color="dark" slot="end" name="add-outline"></ion-icon> -->
+    </ion-button>
+    <ion-button color="light" size="small" (click)="close()" expand="block"> 
+      Cancel
+      <!-- <ion-icon color="dark" slot="end" name="add-outline"></ion-icon> -->
+    </ion-button>
+  </ion-footer>
   </form>
 </ion-content>

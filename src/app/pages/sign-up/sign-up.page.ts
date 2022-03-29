@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CompanyService } from '../../services/company/company.service';
-import { ContactDetails, Company, Person } from '../../global/models/globals.model';
-import { User } from '../../global/models/globals.model';
+import { ContactDetails, Company, Person, User } from '../../global/models/globals.model';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
+import { NotificationPopupService } from '../../services/notification-popup/notification-popup.service';
 
 @Component({
   selector: 'iopm-sign-up',
@@ -28,7 +28,8 @@ export class SignUpPage implements OnInit {
     private _loadingController: LoadingController,
     private _userService: UserService,
     private _router: Router,
-    private _alertController: AlertController
+    private _alertController: AlertController,
+    private notficationPopupService: NotificationPopupService
     ) { 
     this._companyService.getCompanies().subscribe(res => {
       console.log('COMPANIES');
@@ -136,7 +137,6 @@ export class SignUpPage implements OnInit {
         employees: []
       }
       await this.addCompany(this.company).then( ref => {
-        console.log(ref);
         this.company.cid = ref.id;
         this.user.companyId = this.company.cid;
       })
@@ -145,11 +145,14 @@ export class SignUpPage implements OnInit {
       this.user.companyId = this.company.cid;
     }
 
-    await this._userService.signUp(this.signUpForm.value).then(async res => {
+    await this._userService.signUp({email: this.signUpForm.get('signInEmail').value, password: this.signUpForm.get('password').value}).then(async res => {
+      console.log('RESULT OF SIGNUP');
       console.log(res);
       this.user.uid = res.user.uid;
       await this._userService.createUser(this.user).then(res=>{
+        this._userService.setCurrentUser(this.user);
         loading.dismiss();
+        this.notficationPopupService.presentToast('Account Created Successfully!', 'success', 'thumbs-up-outline')
         this._router.navigateByUrl('/tabs', {replaceUrl: true});
       })
     }, async err => {

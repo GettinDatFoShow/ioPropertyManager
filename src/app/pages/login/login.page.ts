@@ -15,30 +15,33 @@ export class LoginPage implements OnInit {
   credentialForm: FormGroup;
 
   constructor(
-    private _fb: FormBuilder,
-    private _router: Router,
-    private _alertController: AlertController,
-    private _loadingController: LoadingController,
-    private _userService: UserService,
-    private _companyService: CompanyService
+    private fb: FormBuilder,
+    private router: Router,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private userService: UserService,
+    private companyService: CompanyService
     ) { }
 
   ngOnInit() {
-    this.credentialForm = this._fb.group({
+    this.credentialForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
 
   async signIn() {
-    const loading = await this._loadingController.create();
+    const loading = await this.loadingController.create();
     await loading.present();
-    this._userService.signIn(this.credentialForm.value).then(user => {
+    await this.userService.signIn(this.credentialForm.value).then( async res => {
+      // console.log(res);
+      // TO DO: FIX THIS BELOW BROKEN CODE
+      console.log(res);
       loading.dismiss();
-      this._router.navigateByUrl('/tabs', {replaceUrl: true});
+      this.router.navigateByUrl('/tabs', {replaceUrl: true});
     }, async err => {
       loading.dismiss();
-      const alert = await this._alertController.create({
+      const alert = await this.alertController.create({
         header: ':[', 
         message: err.message, 
         buttons: ['OK']
@@ -48,7 +51,7 @@ export class LoginPage implements OnInit {
   }
 
   signUp() {
-    this._router.navigateByUrl('/sign-up', { replaceUrl: true })
+    this.router.navigateByUrl('/sign-up', { replaceUrl: true })
   }
 
   get email() {

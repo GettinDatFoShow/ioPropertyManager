@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { PopoverController } from '@ionic/angular';
+import { PropertyService } from '../../services/property/property.service';
 
 @Component({
   selector: 'iopm-property',
@@ -10,7 +10,9 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PropertyPage {
 
-  constructor(public popoverController: PopoverController) {}
+  constructor(public popoverController: PopoverController, public propertyService: PropertyService) {
+
+  }
 
   async addProperty(ev: any) {
     const popover = await this.popoverController.create({

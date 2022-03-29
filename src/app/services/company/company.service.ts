@@ -10,7 +10,7 @@ import { Company } from '../../global/models/globals.model';
 export class CompanyService {
 
   COMPANIES_KEY = 'Companies';
-  currentCompany: Company;
+  currentCompanyId: string = null;
 
   constructor(private _firestore: Firestore) { }
 
@@ -44,14 +44,12 @@ export class CompanyService {
     return deleteDoc(companyDocRef);
   }
 
-  setCurrentCompany(cid: string) {
-    this.getCompany(cid).subscribe(company=> {
-      this.currentCompany = company;
-    });
+  setCurrentCompanyId(cid: string) {
+    this.currentCompanyId = cid;
   }
 
-  getCurrentCompany() {
-    return this.currentCompany;
+  getCurrentCompanyId(): string {
+    return this.currentCompanyId;
   }
 
 }

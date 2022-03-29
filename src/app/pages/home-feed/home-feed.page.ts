@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { CompanyService } from '../../services/company/company.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'iopm-home-feed',
@@ -7,11 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeFeedPage implements OnInit {
 
-  companyTitle = 'KB Homes'; // name will be pulled from user when used to sign up. 
+  companyTitle = ''; // name will be pulled from user when used to sign up. 
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private companyService: CompanyService
+    ) {
+     }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.getUser();
+  }
+
+  async getUser() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+    await console.log(this.userService.getUser(this.userService.currentUser.uid));
   }
 
 }

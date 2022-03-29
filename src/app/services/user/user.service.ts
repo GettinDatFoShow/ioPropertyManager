@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
-import { collection, DocumentReference } from 'firebase/firestore';
+import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc, query, where } from '@angular/fire/firestore';
+import { collection, DocumentReference, getDoc, getDocs } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../../global/models/globals.model';
 
@@ -10,19 +10,25 @@ import { User } from '../../global/models/globals.model';
 })
 export class UserService {
 
+  currentUserId: string = null;
   currentUser: User = null;
-  USERS_KEY: string = 'Users';
+  USERS_KEY: string = 'users';
 
-  constructor(private _auth: Auth, private _firestore: Firestore) { 
-    this._auth.onAuthStateChanged(user => {
-      console.log('Changed', user);
-      this.currentUser = user;
-    })
+  constructor(private auth: Auth, private firestore: Firestore) { 
+    try {
+      this.auth.onAuthStateChanged(user => {
+        console.log('Changed', user);
+        this.currentUserId = user.uid;
+      })
+    } catch (e) {
+
+    }
+
   }
 
   async signUp({ email, password}) {
     try {
-      const credential = await createUserWithEmailAndPassword(this._auth, email, password);
+      const credential = await createUserWithEmailAndPassword(this.auth, email, password);
       console.log('result', credential);
       return credential;
     } catch (e) {
@@ -30,26 +36,28 @@ export class UserService {
     }
   }
 
-  signIn({email, password}) {
-    return signInWithEmailAndPassword(this._auth, email, password);
+  async signIn({email, password}) {
+    return await signInWithEmailAndPassword(this.auth, email, password);
   }
 
   signOut() {
-    return signOut(this._auth);
+    return signOut(this.auth);
   }
 
   createUser(user: User): Promise<DocumentReference> {
-    const userDocRef = collection(this._firestore, this.USERS_KEY);
+    const userDocRef = collection(this.firestore, this.USERS_KEY);
     return addDoc(userDocRef, user);
   }
 
-  getUser(uid: string): Observable<User> {
-    const userDocRef = doc(this._firestore, `${this.USERS_KEY}/${uid}`);
-    return docData(userDocRef, {idField: 'uid'}) as Observable<User>;
+  async getUser(uid: string) {
+    const usersRef = collection(this.firestore, `${this.USERS_KEY}`);
+    const q = query(usersRef, where('uid', '==', `${uid}`));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
   }
 
   updateUser(user: User): Promise<any> {
-    const userDocRef = doc(this._firestore, `${this.USERS_KEY}/${user.uid}`);
+    const userDocRef = doc(this.firestore, `${this.USERS_KEY}/${user.uid}`);
     return updateDoc(userDocRef, {
       uid: user.uid,
       signInEmail: user.signInEmail,
@@ -64,12 +72,21 @@ export class UserService {
     });
   }  
 
-  setUser(user: User) {
-    this.currentUser = user;
+  setUserId(uid: string): void {
+    this.currentUserId = uid;
   }
 
-  getCurrentUser() {
+  setCurrentUser(user: User) {
+    // this.setUserId(user.uid);
+    this.currentUser = user;
+  }
+  
+  getCurrentUser(): User {
     return this.currentUser;
+  }
+
+  getCurrentUserId(): string {
+    return this.currentUserId;
   }
 
 }
