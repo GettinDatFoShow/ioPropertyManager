@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationPopupService {
 
-  constructor(private toastController: ToastController) { }
+  private loading: HTMLIonLoadingElement;
+
+  constructor(
+    private toastController: ToastController,
+    private loadingController: LoadingController
+    ) { }
 
   async presentToast(message: string, color: string, icon?: string) {
     const toast = await this.toastController.create({
@@ -15,7 +20,23 @@ export class NotificationPopupService {
       color: color,
       icon: icon
     });
-    toast.present();
+    await toast.present();
+  }
+
+  async showLoading(message: string) {
+    this.loading = await this.loadingController.create({
+      spinner: 'circular',
+      duration: 1000,
+      message: message,
+      translucent: true,
+      keyboardClose: true,
+      animated: true
+    });
+    await this.loading.present();
+  }
+
+  async closeLoading() {
+    await this.loading.dismiss();
   }
 
 }

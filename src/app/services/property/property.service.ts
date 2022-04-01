@@ -1,50 +1,56 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs'; 
-import { Property } from '../../global/models/globals.model';
+import { Company, Property } from '../../global/models/globals.model';
+import { CompanyService } from '../company/company.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
 
-  protected PROPERTIES_FINAL: string = 'Properties';
+  COMPANIES_KEY = 'Companies';
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore, private companyService: CompanyService) { }
 
-  getProperties(): Observable<Property[]> {
-    const propertiesRef = collection(this.firestore, this.PROPERTIES_FINAL);
-    return collectionData(propertiesRef, { idField: 'id'}) as Observable<Property[]>;
-  }
+  // getAllProperties(): Observable<Property[]> {
+  //   const propertiesRef = collection(this.firestore, this.PROPERTIES_FINAL);
+  //   return collectionData(propertiesRef, { idField: 'id'}) as Observable<Property[]>;
+  // }
 
-  addProperty(property: Property) {
-    const propertiesRef = collection(this.firestore, this.PROPERTIES_FINAL);
-    return addDoc(propertiesRef, property);
-  }
+  // getPropertiesByCompanyId(cid: string): Observable<Property[]> {
+  //   const propertiesRef = collection(this.firestore, this.PROPERTIES_FINAL);
+  //   return collectionData(propertiesRef, { idField: 'id'}) as Observable<Property[]>;
+  // }
 
-  getPropertyById(id: string):Observable<Property> {
-    const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${id}`);
-    return docData(propertyRef, { idField: 'id' }) as Observable<Property>;
-  }
+  // addProperty(property: Property, company: Company) {
+  //   company.properties.push(property);
+  //   return this.companyService.updateCompany(company);
+  // }
 
-  updateProperty(property: Property) {
-    const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${property.id}`);
-    return updateDoc(propertyRef, {
-      propertyType: property.type,
-      added: property.added,
-      active: true,
-      propertyName: property.propertyName,
-      description: property.description,
-      extraInfo: property.extraInfo,
-      location: property.location,
-      schedule: property.schedule,
-      homes: property.homes,
-      owners: property.owners
-    })
-  }
+  // getPropertyById(pid: string):Observable<Property> {
+  //   const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${pid}`);
+  //   return docData(propertyRef, { idField: 'pid' }) as Observable<Property>;
+  // }
 
-  removeProperty(pid: string) {
-    const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${pid}`);
-    return deleteDoc(propertyRef);
-  }
+  // updateProperty(property: Property) {
+  //   const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${property.pid}`);
+  //   return updateDoc(propertyRef, {
+  //     propertyType: property.type,
+  //     added: property.added,
+  //     active: true,
+  //     propertyName: property.propertyName,
+  //     description: property.description,
+  //     extraInfo: property.extraInfo,
+  //     location: property.location,
+  //     schedule: property.schedule,
+  //     homes: property.homes,
+  //     owners: property.owners
+  //   })
+  // }
+
+  // removeProperty(pid: string) {
+  //   const propertyRef = doc(this.firestore, `${this.PROPERTIES_FINAL}/${pid}`);
+  //   return deleteDoc(propertyRef);
+  // }
 }

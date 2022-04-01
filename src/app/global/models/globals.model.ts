@@ -47,7 +47,7 @@ export interface ContactDetails {
 }
 
 export interface Property {
-    id?: string;
+    pid?: string;
     type?: string;
     added?: Date;
     active?: boolean;
@@ -61,7 +61,7 @@ export interface Property {
 }
 
 export interface Home {
-    id?: string;
+    hid?: string;
     homeName?: string
     description?: string;
     isRented?: boolean;
@@ -71,14 +71,14 @@ export interface Home {
 }
 
 export interface Room {
-    id?: string;
+    rid?: string;
     type?: string;
     description?: string;
     items?: Item[];
 }
 
 export interface Item {
-    id?: string;
+    iid?: string;
     added?: Date;
     description?: string;
     buildYear?: number;
@@ -98,7 +98,7 @@ export interface Person {
 }
 
 export interface ExtraInfo {
-    id?: string;
+    eiid?: string;
     infoDescrtion?: string;
     info?: string;
 }

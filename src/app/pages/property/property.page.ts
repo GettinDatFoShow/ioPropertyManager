@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { PopoverController } from '@ionic/angular';
-import { PropertyService } from '../../services/property/property.service';
+import { Company, Property } from '../../global/models/globals.model';
+import { CompanyService } from '../../services/company/company.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'iopm-property',
@@ -10,10 +12,28 @@ import { PropertyService } from '../../services/property/property.service';
 })
 export class PropertyPage {
 
-  constructor(public popoverController: PopoverController, public propertyService: PropertyService) {
+  properties: Property[] = [];
+
+  constructor(
+    public popoverController: PopoverController, 
+    public companyService: CompanyService,
+    public userService: UserService
+    ) {
 
   }
 
+  ionViewWillEnter() {
+    console.log('ION WILL ENTER');
+    console.log(this.userService.currentUser)
+    this.companyService.getCompany(this.userService.currentUser.companyId).subscribe((company: Company) => {
+      console.log('getting company....');
+      console.log(company);
+      if (!!company.properties){
+        this.properties = company.properties;
+      }
+    })
+  }
+  
   async addProperty(ev: any) {
     const popover = await this.popoverController.create({
       component: AddPropertyComponent,

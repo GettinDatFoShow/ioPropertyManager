@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { collection, DocumentReference  } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Company } from '../../global/models/globals.model';
 
 @Injectable({
@@ -10,7 +10,8 @@ import { Company } from '../../global/models/globals.model';
 export class CompanyService {
 
   COMPANIES_KEY = 'Companies';
-  currentCompanyId: string = null;
+  public currentCompanyId: string = null;
+  companyTabLock: Subject<Company> = new Subject<Company>();
 
   constructor(private _firestore: Firestore) { }
 
@@ -46,10 +47,18 @@ export class CompanyService {
 
   setCurrentCompanyId(cid: string) {
     this.currentCompanyId = cid;
+    console.log('setting company id');
+    console.log(this.currentCompanyId);
   }
 
   getCurrentCompanyId(): string {
+    console.log('returning companyId')
+    console.log(this.currentCompanyId);
     return this.currentCompanyId;
+  }
+
+  unlockTabs(company: Company) {
+    this.companyTabLock.next(company);
   }
 
 }

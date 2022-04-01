@@ -22,6 +22,6 @@ import { AddPropertyComponent } from './add-property/add-property.component';
   declarations: [
     PropertyPage,
     AddPropertyComponent
-  ]
+  ],
 })
 export class PropertyPageModule {}

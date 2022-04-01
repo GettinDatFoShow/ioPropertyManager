@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Company } from '../global/models/globals.model';
+import { CompanyService } from '../services/company/company.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +10,15 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  tabsLocked: boolean = true;
+  companyTabLockSubscription: Subscription;
+
+  constructor(private companyService: CompanyService) {
+    this.companyTabLockSubscription = this.companyService.companyTabLock.subscribe({
+      next: (company: Company) => {
+        !!company.cid ? this.tabsLocked = false : null;
+      }
+    })
+  }
 
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { CompanyService } from '../../../services/company/company.service';
-import { PropertyService } from '../../../services/property/property.service';
 import { Company, Property } from '../../../global/models/globals.model';
 import { NotificationPopupService } from 'src/app/services/notification-popup/notification-popup.service';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'iopm-add-property',
@@ -20,28 +20,15 @@ export class AddPropertyComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     private fb: FormBuilder, 
-    private propertyService: PropertyService,
     private companyService: CompanyService,
-    private alertController: AlertController,
-    private loadingController: LoadingController,
-    private notficationPopupService: NotificationPopupService
+    private notficationPopupService: NotificationPopupService,
+    private userService: UserService
     ) {
-      console.log(this.companyService.getCurrentCompanyId());
-      this.companyService.getCompany(this.companyService.getCurrentCompanyId()).subscribe( company => {
-        this.company = company;
-        console.log('company',company)
-      }, async err => {
-        console.error(err.message);
-        const alert = await this.alertController.create({
-          header: ':[', 
-          message: 'There was an issue.. please try again', 
-          buttons: ['OK']
-        });
-        await alert.present(); 
-      })
      }
 
   ngOnInit() {
+    console.log(this.userService.currentUser)
+    this.getCompany();
     this.propertyForm = this.fb.group({
       propertyType: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -58,8 +45,7 @@ export class AddPropertyComponent implements OnInit {
   }
 
   async addProperty() {
-    const loading = await this.loadingController.create();
-    await loading.present();
+    // this.notficationPopupService.showLoading('Creating new poperty...');
     this.property = {
       type: this.propertyForm.get('propertyType').value,
       added: new Date(),
@@ -73,15 +59,24 @@ export class AddPropertyComponent implements OnInit {
         zip: this.propertyForm.get('zip').value
       }
     }
-    await this.propertyService.addProperty(this.property).then(res=>{
-      console.log(res);
-      this.property.id = res.id;
+    if (!!this.company.properties) {
       this.company.properties.push(this.property);
-      this.companyService.updateCompany(this.company).then(res=>{
-        console.log(res);
-        loading.dismiss();
-        this.notficationPopupService.presentToast('Property Created Successfully!', 'success', 'thumbs-up-outline')
-      });
+    } else {
+      this.company.properties = [this.property];
+    }
+    await this.companyService.updateCompany(this.company).then((value)=> {
+      console.log(value);
+      // this.notficationPopupService.closeLoading();
+      this.notficationPopupService.presentToast('Successfully added new property!', 'success', 'thumbs-up-outline');
+      this.close();
+    })
+  }
+
+  getCompany() {
+    this.companyService.getCompany(this.userService.currentUser.companyId).subscribe((company: Company)=>{
+      console.log('GETTING COMPANY')
+      console.log(company);
+      this.company = company;
     })
   }
 }

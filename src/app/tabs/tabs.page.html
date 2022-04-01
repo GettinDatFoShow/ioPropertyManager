@@ -6,12 +6,12 @@
       <ion-label color="dark">Upcoming</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="propertiesTab">
+    <ion-tab-button tab="propertiesTab" [disabled]="tabsLocked">
       <ion-icon color="dark" name="home"></ion-icon>
       <ion-label color="dark">Properites</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="scheduleTab">
+    <ion-tab-button tab="scheduleTab" [disabled]="tabsLocked">
       <ion-icon color="dark" name="calendar"></ion-icon>
       <ion-label color="dark">Schedule</ion-label>
     </ion-tab-button>

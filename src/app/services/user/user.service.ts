@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential, UserInfo } from '@angular/fire/auth';
 import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc, query, where } from '@angular/fire/firestore';
 import { collection, DocumentReference, getDoc, getDocs } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../../global/models/globals.model';
 
 @Injectable({
@@ -11,14 +11,23 @@ import { User } from '../../global/models/globals.model';
 export class UserService {
 
   currentUserId: string = null;
-  currentUser: User = null;
+  currentUser = null;
   USERS_KEY: string = 'users';
+  userInfoChangeSub: Subject<UserInfo> = new Subject<UserInfo>()
 
   constructor(private auth: Auth, private firestore: Firestore) { 
     try {
-      this.auth.onAuthStateChanged(user => {
+      this.auth.onAuthStateChanged((user: UserInfo) => {
         console.log('Changed', user);
         this.currentUserId = user.uid;
+        this.getUser(user.uid).then((snapshot)=> {
+          snapshot.forEach( async (userRef)=> {
+            docData(userRef.ref, { idField: 'uid' }).subscribe( async (user)=> {
+              this.currentUser = user;
+            })
+            })
+          });
+        this.userInfoChangeSub.next(user);
       })
     } catch (e) {
 
@@ -28,7 +37,7 @@ export class UserService {
 
   async signUp({ email, password}) {
     try {
-      const credential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const credential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       console.log('result', credential);
       return credential;
     } catch (e) {
@@ -50,6 +59,8 @@ export class UserService {
   }
 
   async getUser(uid: string) {
+    console.log('getUser uid')
+    console.log(uid);
     const usersRef = collection(this.firestore, `${this.USERS_KEY}`);
     const q = query(usersRef, where('uid', '==', `${uid}`));
     const querySnapshot = await getDocs(q);
