@@ -22,7 +22,7 @@ export class UserService {
         this.currentUserId = user.uid;
         this.getUser(user.uid).then((snapshot)=> {
           snapshot.forEach( async (userRef)=> {
-            docData(userRef.ref, { idField: 'uid' }).subscribe( async (user)=> {
+            docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
               this.currentUser = user;
             })
             })
