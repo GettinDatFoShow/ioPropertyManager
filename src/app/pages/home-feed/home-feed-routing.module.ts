@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { HomeFeedPage } from './home-feed.page';
 
@@ -14,4 +14,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeFeedPageRoutingModule {}
+export class HomeFeedPageRoutingModule {
+  preloadingStrategy: PreloadAllModules
+}

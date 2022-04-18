@@ -14,9 +14,15 @@ export class TabsPage {
   companyTabLockSubscription: Subscription;
 
   constructor(private companyService: CompanyService) {
+    
+  }
+
+  ionViewWillEnter() {
     this.companyTabLockSubscription = this.companyService.companyTabLock.subscribe({
       next: (company: Company) => {
-        !!company.cid ? this.tabsLocked = false : null;
+        console.log('company tab lock subscription hit');
+        console.log(company);
+        company.cid !== null && company.cid !== undefined ? this.tabsLocked = false : null;
       }
     })
   }

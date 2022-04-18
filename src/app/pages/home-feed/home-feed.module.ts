@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HomeFeedPageRoutingModule } from './home-feed-routing.module';
 import { HomeFeedPage } from './home-feed.page';
+import { SharedModule } from '../../services/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeFeedPageRoutingModule
+    HomeFeedPageRoutingModule,
+    SharedModule
   ],
   declarations: [HomeFeedPage]
 })

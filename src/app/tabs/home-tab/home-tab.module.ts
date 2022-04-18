@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { HomeTabPageRoutingModule } from './home-tab-routing.module';
 
 import { HomeTabPage } from './home-tab.page';
+import { SharedModule } from '../../services/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeTabPageRoutingModule
+    HomeTabPageRoutingModule,
+    SharedModule
   ],
   declarations: [HomeTabPage]
 })

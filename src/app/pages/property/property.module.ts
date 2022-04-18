@@ -9,6 +9,7 @@ import { PropertyPageRoutingModule } from './property-routing.module';
 import { PropertyPage } from './property.page';
 import { SharedComponentsModule } from 'src/app/components/shared-components/shared-components.module';
 import { AddPropertyComponent } from './add-property/add-property.component';
+import { SharedModule } from '../../services/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { AddPropertyComponent } from './add-property/add-property.component';
     IonicModule,
     PropertyPageRoutingModule,
     SharedComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     PropertyPage,

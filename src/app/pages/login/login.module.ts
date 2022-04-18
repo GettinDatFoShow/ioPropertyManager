@@ -8,6 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { InputModule } from '../../components/input/input.module';
+import { SharedModule } from '../../services/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { InputModule } from '../../components/input/input.module';
     IonicModule,
     LoginPageRoutingModule,
     ReactiveFormsModule,
-    InputModule
+    InputModule,
+    SharedModule
   ],
   declarations: [LoginPage]
 })

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SubscriptionDetailsPageRoutingModule } from './subscription-details-routing.module';
 
 import { SubscriptionDetailsPage } from './subscription-details.page';
+import { SharedModule } from 'src/app/services/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SubscriptionDetailsPageRoutingModule
+    SubscriptionDetailsPageRoutingModule,
+    SharedModule
   ],
   declarations: [SubscriptionDetailsPage]
 })

@@ -33,6 +33,7 @@ export class UserService {
 
     }
 
+    console.warn('USER SERVICE INSTANCE CREATED');
   }
 
   async signUp({ email, password}) {
@@ -58,13 +59,12 @@ export class UserService {
     return addDoc(userDocRef, user);
   }
 
-  async getUser(uid: string) {
-    console.log('getUser uid')
+  getUser(uid: string) {
+    console.warn('user service getUser uid')
     console.log(uid);
     const usersRef = collection(this.firestore, `${this.USERS_KEY}`);
     const q = query(usersRef, where('uid', '==', `${uid}`));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot;
+    return getDocs(q);
   }
 
   updateUser(user: User): Promise<any> {

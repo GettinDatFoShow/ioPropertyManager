@@ -8,6 +8,7 @@ import { SchedulePageRoutingModule } from './schedule-routing.module';
 
 import { SchedulePage } from './schedule.page';
 import { SharedComponentsModule } from 'src/app/components/shared-components/shared-components.module';
+import { SharedModule } from '../../services/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SharedComponentsModule } from 'src/app/components/shared-components/sha
     FormsModule,
     IonicModule,
     SchedulePageRoutingModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    SharedModule
   ],
   declarations: [SchedulePage]
 })

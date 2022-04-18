@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfo } from '@angular/fire/auth';
-import { docData } from '@angular/fire/firestore';
+import { docData, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import {  LoadingController } from '@ionic/angular';
 import { NotificationPopupService } from '../../services/notification-popup/notification-popup.service';
 import { Company, Property, User } from '../../global/models/globals.model';
@@ -28,8 +28,6 @@ export class HomeFeedPage implements OnInit {
     ) {
       this.userService.userInfoChangeSub.subscribe({
         next: (user: UserInfo) => {
-          console.log('USER INFO CHANGE CAUGHT');
-          console.log(user);
           this.getUser(user.uid);
         }
       });
@@ -43,6 +41,7 @@ export class HomeFeedPage implements OnInit {
   }
 
   async getUser(uid: string) {
+    console.warn('async getUser');
     this.loading = await this.loadingController.create({
       spinner: 'circular',
       duration: 1000,
@@ -50,9 +49,15 @@ export class HomeFeedPage implements OnInit {
       translucent: true
     });
     await this.loading.present();
-    await this.userService.getUser(uid).then((snapshot)=> {
-      snapshot.forEach( async (userRef)=> {
-        docData(userRef.ref, { idField: 'uid' }).subscribe( async (user)=> {
+    this.userService.getUser(uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
+      console.warn('getUser(uid).then')
+      console.log('for user: ', uid)
+      console.log(snapshot)
+      console.log(snapshot.docs)
+      snapshot.forEach( (userRef)=> {
+        console.warn('loading userRef')
+        console.log(userRef)
+        docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
           console.log('user ref doc data');
           console.log(user);
           this.userService.currentUser = user;

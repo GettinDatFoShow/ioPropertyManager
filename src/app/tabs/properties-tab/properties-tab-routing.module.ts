@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { PropertiesTabPage } from './properties-tab.page';
 
@@ -51,4 +51,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PropertiesTabPageRoutingModule {}
+export class PropertiesTabPageRoutingModule {
+  preloadingStrategy: PreloadAllModules
+}

@@ -15,9 +15,9 @@ export class PropertyPage {
   properties: Property[] = [];
 
   constructor(
-    public popoverController: PopoverController, 
-    public companyService: CompanyService,
-    public userService: UserService
+    private popoverController: PopoverController, 
+    private companyService: CompanyService,
+    private userService: UserService
     ) {
 
   }

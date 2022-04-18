@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { collection, DocumentReference  } from 'firebase/firestore';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Company } from '../../global/models/globals.model';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,11 @@ export class CompanyService {
 
   COMPANIES_KEY = 'Companies';
   public currentCompanyId: string = null;
-  companyTabLock: Subject<Company> = new Subject<Company>();
-
-  constructor(private _firestore: Firestore) { }
+  companyTabLock: Subject<Company> = new Subject();
+  
+  constructor(private _firestore: Firestore) {
+    console.warn('company service created')
+   }
 
   createNew(company: Company): Promise<DocumentReference> {
     const companiesRef = collection(this._firestore, this.COMPANIES_KEY);
@@ -58,6 +61,7 @@ export class CompanyService {
   }
 
   unlockTabs(company: Company) {
+    console.log('unlockTabs....');
     this.companyTabLock.next(company);
   }
 
