@@ -16,6 +16,11 @@ export class AddPropertyComponent implements OnInit {
   public company: Company;
   public property: Property;
   public propertyForm: FormGroup;
+  public propertyTypes: string[] = [
+    'Single Family Home',
+    'Multi-Family Complex',
+    'Community'
+  ]
 
   constructor(
     public modalController: ModalController,
@@ -32,7 +37,7 @@ export class AddPropertyComponent implements OnInit {
     this.propertyForm = this.fb.group({
       propertyType: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: [''],
       street: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
@@ -67,8 +72,8 @@ export class AddPropertyComponent implements OnInit {
     await this.companyService.updateCompany(this.company).then((value)=> {
       console.log(value);
       // this.notficationPopupService.closeLoading();
-      this.notficationPopupService.presentToast('Successfully added new property!', 'success', 'thumbs-up-outline');
       this.close();
+      this.notficationPopupService.presentToast('Successfully added new property!', 'success', 'thumbs-up-outline');
     })
   }
 
@@ -78,5 +83,10 @@ export class AddPropertyComponent implements OnInit {
       console.log(company);
       this.company = company;
     })
+  }
+
+  userPropertyType(event: any): void {
+    this.propertyForm.value['propertyType'] = event.detail.value;
+    console.log('Property Type Selected: ', this.propertyForm.value['propertyType'])
   }
 }

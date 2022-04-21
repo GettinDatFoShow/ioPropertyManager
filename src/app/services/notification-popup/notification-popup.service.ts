@@ -39,4 +39,8 @@ export class NotificationPopupService {
     await this.loading.dismiss();
   }
 
+  clickWarning(functionName: string) {
+    this.presentToast(`${functionName} functionality underconstruction..`, 'warning', 'alert');
+  }
+
 }

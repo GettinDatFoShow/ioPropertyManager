@@ -21,14 +21,29 @@
     </ion-card-header>
       <ion-card-content>
   
-        <ion-item>
+        <!-- <ion-item>
           <ion-input 
           placeholder="Appt, Home, Duplex, ect.."
           formControlName="propertyType"
           id="propertyType"
           clearInput="true">
           </ion-input>
-        </ion-item >
+        </ion-item > -->
+
+        <ion-item >
+          <ion-label>Property Type</ion-label>
+          <ion-select 
+          interface="popover"
+          id="propertyType"
+          clearInput="true"
+          (ionChange)="userPropertyType($event)"
+          formControlName="propertyType">
+            <ion-select-option 
+              *ngFor="let type of propertyTypes" 
+              [value]="type">{{type}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
 
         <ion-item>
           <ion-input 

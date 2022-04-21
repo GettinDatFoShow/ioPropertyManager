@@ -19,6 +19,7 @@ export class HomeFeedPage implements OnInit {
   loading: HTMLIonLoadingElement;
   company: Company = null;
   properties: Property[] = [];
+  loadingUserData: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -42,13 +43,13 @@ export class HomeFeedPage implements OnInit {
 
   async getUser(uid: string) {
     console.warn('async getUser');
-    this.loading = await this.loadingController.create({
-      spinner: 'circular',
-      duration: 1000,
-      message: 'Loading User Information...',
-      translucent: true
-    });
-    await this.loading.present();
+    // this.loading = await this.loadingController.create({
+    //   spinner: 'circular',
+    //   duration: 1000,
+    //   message: 'Loading User Information...',
+    //   translucent: true
+    // });
+    // await this.loading.present();
     this.userService.getUser(uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
       console.warn('getUser(uid).then')
       console.log('for user: ', uid)
@@ -64,10 +65,12 @@ export class HomeFeedPage implements OnInit {
           this.companyService.currentCompanyId = user.companyId
           this.getUserCompanyInfo(user.companyId);
           this.userService.userInfoChangeSub.unsubscribe();
-          this.loading.dismiss();
+          // this.loading.dismiss();
+          this.loadingUserData = false;
         });
       })
     }, (err) => {
+      this.loadingUserData = false;
       this.notificationService.presentToast('Could not locate user information..', 'danger', 'sad-outline');
     });
   }

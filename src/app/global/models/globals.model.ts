@@ -13,6 +13,7 @@ export interface User {
     isOwner?: boolean;
     membership?: any;
     companyId?: string;
+    displayImage?: string;
     extraInfo?: ExtraInfo[];
 }
 

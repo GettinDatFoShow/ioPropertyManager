@@ -4,6 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { Company, Property } from '../../global/models/globals.model';
 import { CompanyService } from '../../services/company/company.service';
 import { UserService } from '../../services/user/user.service';
+import { NotificationPopupService } from '../../services/notification-popup/notification-popup.service';
 
 @Component({
   selector: 'iopm-property',
@@ -13,10 +14,12 @@ import { UserService } from '../../services/user/user.service';
 export class PropertyPage {
 
   properties: Property[] = [];
+  fullViewIndex: number = 1;
 
   constructor(
     private popoverController: PopoverController, 
     private companyService: CompanyService,
+    private notficationPopupService: NotificationPopupService,
     private userService: UserService
     ) {
 
@@ -47,4 +50,31 @@ export class PropertyPage {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  viewPhotoClick() {
+    this.clickWarning('View Photo');
+  }
+
+  locationClick() {
+    this.clickWarning('View Location');
+  }
+
+  calendarClick() {
+    this.clickWarning('View Schedule');
+  }
+
+  addOwnerClick() {
+    this.clickWarning('View Owners');
+  }
+
+  activeClick() {
+    this.clickWarning('View Active');
+  }
+
+  editClick() {
+    this.clickWarning('Edit Property');
+  }
+
+  private clickWarning(functionName: string) {
+    this.notficationPopupService.clickWarning(functionName);
+  }
 }
