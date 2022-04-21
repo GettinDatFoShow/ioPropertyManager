@@ -30,7 +30,8 @@ export class PropertiesTabPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this._menuController.enable(true, 'propertiesTabMenu')
+    this._menuController.enable(true, 'propertiesTabMenu');
+    this.paneEnabled = true;
   }
 
   ionViewWillLeave() {

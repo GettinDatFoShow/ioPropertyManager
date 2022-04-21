@@ -26,7 +26,8 @@ export class ScheduleTabPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this._menuController.enable(true, 'scheduleTabMenu')
+    this._menuController.enable(true, 'scheduleTabMenu');
+    this.paneEnabled = true;
   }
 
   ionViewWillLeave() {

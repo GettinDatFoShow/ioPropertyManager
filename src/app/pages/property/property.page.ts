@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AddPropertyComponent } from './add-property/add-property.component';
-import { PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Company, Property } from '../../global/models/globals.model';
 import { CompanyService } from '../../services/company/company.service';
 import { UserService } from '../../services/user/user.service';
@@ -17,7 +17,8 @@ export class PropertyPage {
   fullViewIndex: number = 1;
 
   constructor(
-    private popoverController: PopoverController, 
+    private modalController: ModalController,
+    // private popoverController: PopoverController, 
     private companyService: CompanyService,
     private notficationPopupService: NotificationPopupService,
     private userService: UserService
@@ -38,11 +39,11 @@ export class PropertyPage {
   }
   
   async addProperty(ev: any) {
-    const popover = await this.popoverController.create({
+    const popover = await this.modalController.create({
       component: AddPropertyComponent,
       // cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
+      // event: ev,
+      // translucent: true
     });
     await popover.present();
 
