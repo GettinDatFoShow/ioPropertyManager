@@ -19,5 +19,54 @@
   <ion-card>  
 
   </ion-card>
-  
+  <!-- Default List Header -->
+
+    <ion-list-header>
+      <ion-label color="dark">
+        <h1>{{today | date : 'fullDate'}}</h1>
+        <h2>Appointments</h2>
+      </ion-label>
+    </ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2>{{today | date : 'short'}}</h2>
+          <h3>Property Name</h3>
+          <p>Type of appointment</p>
+        </ion-label>
+        <ion-button>More Info</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>{{exDate | date : 'short'}}</h2>
+          <h3>Property Name</h3>
+          <p>Type of appointment</p>
+        </ion-label>
+        <ion-button>More Info</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>{{exDate1 | date : 'short'}}</h2>
+          <h3>Property Name</h3>
+          <p>Type of appointment</p>
+        </ion-label>
+        <ion-button>More Info</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>{{exDate2 | date : 'short'}}</h2>
+          <h3>Property Name</h3>
+          <p>Type of appointment</p>
+        </ion-label>
+        <ion-button>More Info</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>{{exDate3 | date : 'short'}}</h2>
+          <h3>Property Name</h3>
+          <p>Type of appointment</p>
+        </ion-label>
+        <ion-button>More Info</ion-button>
+      </ion-item>
+    </ion-list>
 </ion-content>

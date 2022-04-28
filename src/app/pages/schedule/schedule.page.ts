@@ -10,10 +10,17 @@ import { AddScheduleDateComponent } from 'src/app/components/add-schedule-date/a
 export class SchedulePage implements OnInit {
   
   isPopoverOpen: boolean = false;
+  today: Date = new Date();
+  exDate: Date = new Date('Wed May 18 2022 14:00:00 GMT-0400');
+  exDate1: Date = new Date('Mon Jun 13 2022 09:00:00 GMT-0400');
+  exDate2: Date = new Date('Fri Jun 24 2022 10:00:00 GMT-0400');
+  exDate3: Date = new Date('Thu Jul 28 2022 13:00:00 GMT-0400');
 
+  
   constructor(public popoverController: PopoverController){}
 
   ngOnInit() {
+    console.log(this.today);
   }
 
   addEvent() {
