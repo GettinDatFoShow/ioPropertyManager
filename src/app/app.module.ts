@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { MapViewComponent } from './components/map-view/map-view.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     IonicModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
     provideFirestore(() => getFirestore()),
-    provideAuth(()=> getAuth()),
-    provideStorage(()=> getStorage())
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage())
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

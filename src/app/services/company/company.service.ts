@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { collection, DocumentReference  } from 'firebase/firestore';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Company } from '../../global/models/globals.model';
-import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'

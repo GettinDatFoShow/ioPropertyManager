@@ -11,7 +11,12 @@ export const environment = {
     storageBucket: "iopropertymanager.appspot.com",
     messagingSenderId: "22525226674",
     appId: "1:22525226674:web:12723049c99b2c407ce3ab"
+  },
+  
+  mapBox: {
+    accessToken: 'pk.eyJ1IjoiZ2V0dGluZGF0Zm9zaG93IiwiYSI6ImNsMmtzMWN6ZzAwc3AzY29hcG1vM2ViMHgifQ.dz7PsZ2cTwCYBpHOCsVFfg'
   }
+  
 };
 
 /*

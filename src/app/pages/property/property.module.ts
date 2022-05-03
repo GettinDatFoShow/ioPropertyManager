@@ -10,6 +10,7 @@ import { PropertyPage } from './property.page';
 import { SharedComponentsModule } from 'src/app/components/shared-components/shared-components.module';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { SharedModule } from '../../services/shared/shared.module';
+import { PropertyDisplayComponent } from './property-display/property-display.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { SharedModule } from '../../services/shared/shared.module';
   ],
   declarations: [
     PropertyPage,
-    AddPropertyComponent
+    AddPropertyComponent,
+    PropertyDisplayComponent
   ],
 })
 export class PropertyPageModule {}
