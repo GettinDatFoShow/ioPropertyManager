@@ -9,7 +9,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button color="primary" routerLink="/">
+      <ion-button style="font-weight: 600;" color="primary" routerLink="/">
         LOGIN
       </ion-button>
     </ion-buttons>
@@ -68,9 +68,9 @@
         <ion-list>
           <ion-text color="medium">* denotes required field</ion-text>
           <ion-item>
+            <ion-label color="dark" position="floating">*First</ion-label>
             <ion-input 
             color="dark"
-            placeholder="First*"
             formControlName="first"
             autocomplete="name"
             id="signUpForm"
@@ -80,9 +80,9 @@
             </ion-input>
           </ion-item >
           <ion-item>
+            <ion-label color="dark" position="floating">*Last</ion-label>            
             <ion-input 
             color="dark"
-            placeholder="Last*"
             formControlName="last"
             autocomplete="name"
             id="signUpForm"
@@ -92,9 +92,9 @@
             </ion-input>
           </ion-item >
           <ion-item>
+            <ion-label color="dark" position="floating">*Sign in Email</ion-label>
             <ion-input 
             color="dark"
-            placeholder="Sign in Email*"
             formControlName="signInEmail"
             clearInput="true"
             autocomplete="email"
@@ -102,9 +102,9 @@
             </ion-input>
           </ion-item >
           <ion-item>
+            <ion-label color="dark" position="floating">*Password</ion-label>
             <ion-input
             color="dark"
-            placeholder="Password*"
             formControlName="password"
             clearInput="true"
             type="password"
@@ -118,9 +118,9 @@
               Password minmum lenght must be 8 characters.
           </div>
           <ion-item>
+            <ion-label color="dark" position="floating">*Confirm Password</ion-label>
             <ion-input
             color="dark"
-            placeholder="Confirm Password*"
             formControlName="confirmPassword"
             clearInput="true"
             type="password"
@@ -131,9 +131,9 @@
               Password does not match
           </div>
           <ion-item>
+            <ion-label color="dark" position="floating">*Phone Number</ion-label>
             <ion-input 
             color="dark"
-            placeholder="Phone Number*"
             formControlName="phone"
             clearInput="true"
             autocomplete="tel"
@@ -141,8 +141,10 @@
             </ion-input>
           </ion-item >
           <ion-radio-group
+          
           formControlName="contactType"
-          allowEmptySelection="false" *ngIf="signUpForm.get('phone').dirty">        
+          allowEmptySelection="false" *ngIf="signUpForm.get('phone').dirty">   
+          <!-- <ion-label  color="dark" position="floating">*Contact Type</ion-label>      -->
           <ion-item>
             <ion-label>Home</ion-label>
             <ion-radio  color="secondary" slot="end" value="home"></ion-radio>
@@ -157,9 +159,9 @@
           </ion-item>
         </ion-radio-group>
           <ion-item *ngIf="isOwner">
+            <ion-label color="dark" position="floating">Company Name</ion-label>
             <ion-input 
             color="dark"
-            placeholder="Company Name*"
             formControlName="companyName"
             clearInput="true"
             autocomplete="company"
@@ -167,7 +169,7 @@
             </ion-input>
           </ion-item >
           <ion-item *ngIf="!isOwner">
-            <ion-label>Employer</ion-label>
+            <ion-label  color="dark" position="floating">Employer</ion-label>
             <ion-select interface="popover"
             clearInput="true"
             (ionChange)="userEmployerInput($event)"
@@ -197,8 +199,8 @@
 
         <ion-list>
           <ion-item>
+            <ion-label  color="dark" position="floating">*Company Email</ion-label>
             <ion-input 
-            placeholder="Contact Email*"
             formControlName="email"
             id="companyForm"
             clearInput="true"
@@ -206,18 +208,18 @@
             </ion-input>
           </ion-item >
           <ion-item>
+            <ion-label  color="dark" position="floating">*Company Phone</ion-label>
             <ion-input 
             color="dark"
-            placeholder="Company Phone*"
             formControlName="phone"
             clearInput="true"
             type="tel">
             </ion-input>
           </ion-item >
           <ion-item>
+            <ion-label  color="dark" position="floating">Website</ion-label>
             <ion-input 
             color="dark"
-            placeholder="Website"
             formControlName="website"
             clearInput="true"
             type="text">

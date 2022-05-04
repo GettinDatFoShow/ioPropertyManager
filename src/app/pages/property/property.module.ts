@@ -7,9 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { PropertyPageRoutingModule } from './property-routing.module';
 
 import { PropertyPage } from './property.page';
-import { SharedComponentsModule } from 'src/app/components/shared-components/shared-components.module';
+import { SharedComponentsModule } from '../../components/shared-components/shared-components.module';
 import { AddPropertyComponent } from './add-property/add-property.component';
-import { SharedModule } from '../../services/shared/shared.module';
 import { PropertyDisplayComponent } from './property-display/property-display.component';
 
 @NgModule({
@@ -19,8 +18,7 @@ import { PropertyDisplayComponent } from './property-display/property-display.co
     IonicModule,
     PropertyPageRoutingModule,
     SharedComponentsModule,
-    ReactiveFormsModule,
-    SharedModule
+    ReactiveFormsModule
   ],
   declarations: [
     PropertyPage,

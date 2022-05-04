@@ -5,11 +5,6 @@
       Add Property
     </ion-title>
   </ion-toolbar>
-  <!-- <ion-fab vertical="bottom" horizontal="end" edge (click)="close()">
-    <ion-fab-button color="dark">
-      <ion-icon name="close-outline" color="light"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
 </ion-header>
 <ion-content>
   <form [formGroup]="propertyForm" >
@@ -17,21 +12,11 @@
   
     <ion-card-header>
       <ion-card-subtitle color="dark">New Property Details</ion-card-subtitle>
-      <!-- <ion-card-title>Fill out the details below</ion-card-title> -->
     </ion-card-header>
       <ion-card-content>
-  
-        <!-- <ion-item>
-          <ion-input 
-          placeholder="Appt, Home, Duplex, ect.."
-          formControlName="propertyType"
-          id="propertyType"
-          clearInput="true">
-          </ion-input>
-        </ion-item > -->
 
         <ion-item >
-          <ion-label>Property Type</ion-label>
+          <ion-label  position="floating">Property Type</ion-label>
           <ion-select 
           interface="popover"
           id="propertyType"
@@ -46,6 +31,7 @@
         </ion-item>
 
         <ion-item>
+          <ion-label  position="floating">Property Name</ion-label>
           <ion-input 
           placeholder="Property Name"
           formControlName="name"
@@ -55,6 +41,10 @@
         </ion-item >
 
         <ion-item>
+          <iopm-address-search-map></iopm-address-search-map>
+        </ion-item>
+
+        <!-- <ion-item>
           <ion-input 
           placeholder="Street"
           formControlName="street"
@@ -89,9 +79,10 @@
           clearInput="true"
           type="number">
           </ion-input>
-        </ion-item >
+        </ion-item > -->
 
         <ion-item>
+          <ion-label  position="floating">Any Extra Description..</ion-label>
           <ion-input 
           placeholder="Any Extra Description.."
           formControlName="description"

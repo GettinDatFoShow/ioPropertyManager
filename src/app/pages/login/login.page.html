@@ -9,7 +9,7 @@
       </ion-button>
     </ion-buttons> -->
     <ion-buttons slot="end">
-      <ion-button color="primary" routerLink="/sign-up">
+      <ion-button style="font-weight: 600;" color="primary" routerLink="/sign-up">
         SIGN UP
       </ion-button>
     </ion-buttons>
@@ -26,16 +26,19 @@
   <form [formGroup]="credentialForm" id="form">
       <ion-card color="clear" class="ion-no-margin">
         <ion-card-content>
-            <ion-item class="ion-margin-bottom" color="light">
+            <ion-item>
+              <ion-label color="dark" position="floating">Email Address</ion-label>
               <ion-input 
+              (ionChange)="updateEmail($event)"
               color="dark"
-              placeholder="Email Address"
+              placeholder="email@gmail.com"
               formControlName="email"
               clearInput="true"
               type="email">
               </ion-input>
             </ion-item >
-            <ion-item class="ion-margin-bottom" color="light">
+            <ion-item>
+              <ion-label color="dark" position="floating">Password</ion-label>
               <ion-input
               color="dark"
               placeholder="Password"
@@ -44,7 +47,7 @@
               type="password"
               ></ion-input>
             </ion-item>
-          <ion-button [disabled]="!credentialForm.valid" (click)="signIn()" shape="round" expand="block"> SIGN IN
+          <ion-button [disabled]="!credentialForm.valid" (click)="signIn()"  expand="block"> SIGN IN
             <ion-icon color="dark" slot="end" name="enter-outline"></ion-icon>
           </ion-button>
           <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
@@ -52,7 +55,7 @@
             <span *ngIf="email.errors?.email">Email is invalid</span>
           </div>
           <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
-            <span *ngIf="password.errors?.required">Email is required</span>
+            <span *ngIf="password.errors?.required">Password is required</span>
             <span *ngIf="password.errors?.minlength">Password must be 6 characters</span>
           </div>
         </ion-card-content>

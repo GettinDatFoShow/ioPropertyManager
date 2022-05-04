@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { CompanyService } from 'src/app/services/company/company.service';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -19,8 +18,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private userService: UserService,
-    private companyService: CompanyService
+    private userService: UserService
     ) { }
 
   ngOnInit() {
@@ -28,6 +26,7 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
+    this.updateEmail();
   }
 
   async signIn() {
@@ -52,6 +51,14 @@ export class LoginPage implements OnInit {
 
   signUp() {
     this.router.navigateByUrl('/sign-up', { replaceUrl: true })
+  }
+
+  updateEmail() {
+    if (this.credentialForm.get('email').valid) {
+      this.credentialForm.get('password').enable({onlySelf: true});
+    } else {
+      this.credentialForm.get('password').disable({onlySelf: true});
+    }
   }
 
   get email() {

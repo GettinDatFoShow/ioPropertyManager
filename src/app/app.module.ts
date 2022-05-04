@@ -14,7 +14,6 @@ import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { MapViewComponent } from './components/map-view/map-view.component';
 
 @NgModule({
   declarations: [

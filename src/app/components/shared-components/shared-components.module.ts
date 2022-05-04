@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AddScheduleDateComponent } from '../add-schedule-date/add-schedule-date.component';
-import { InputComponent } from '../input/input.component';
 import { MapViewComponent } from '../map-view/map-view.component';
+import { AddressSearchMapComponent } from '../address-search-map/address-search-map.component';
 
 
 
@@ -14,10 +14,13 @@ import { MapViewComponent } from '../map-view/map-view.component';
   ],
   declarations: [
     AddScheduleDateComponent,
-    MapViewComponent
+    MapViewComponent,
+    AddressSearchMapComponent
   ],
   exports: [
-    MapViewComponent
+    MapViewComponent,
+    AddScheduleDateComponent,
+    AddressSearchMapComponent
   ]
 })
 export class SharedComponentsModule { }

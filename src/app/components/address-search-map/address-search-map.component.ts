@@ -1,30 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../services/map-service/map.service';
 import { GeoJson, FeatureCollection } from '../../global/models/map';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'iopm-map-view',
-  templateUrl: './map-view.component.html',
-  styleUrls: ['./map-view.component.scss'],
+  selector: 'iopm-address-search-map',
+  templateUrl: './address-search-map.component.html',
+  styleUrls: ['./address-search-map.component.scss'],
 })
-export class MapViewComponent implements OnInit {
+export class AddressSearchMapComponent implements OnInit {
+
+  @Input() address: any;
 
   map: mapboxgl.Map;
   lng: number;
   lat: number;
 
-  // data
-  source: any;
-  markers: Observable<GeoJson[]>;
+  constructor(private mapService: MapService) { }
 
-  constructor(private mapService: MapService) { 
-  }
-
-  ngOnInit() {
-    this.markers = this.mapService.getMarkers();
-    this.intializeMap();
+  ngOnInit() {    
+    // this.intializeMap();
   }
 
   private intializeMap() {
@@ -50,24 +46,11 @@ export class MapViewComponent implements OnInit {
       center: [this.lng, this.lat]
     });
 
-    // const marker1 = new mapboxgl.Marker()
-    // .setLngLat([this.lat, this.lng])
-    // .addTo(this.map)
-
-    // for (const key in this.firebaseData.messages) {
-    //   let m = this.firebaseData.messages[key];
-    //   m.type = 'Feature';
-    //   this.firebaseGeojsonFeatures.push(m);
-    // }
-    // this.map.addControl(new mapboxgl.NavigationControl());
-
     this.map.on('click', (event) => {
       const coordinates = [event.lngLat.lng, event.lngLat.lat];
       const newMarker = new GeoJson(coordinates);
       this.mapService.createMarker(newMarker);
     });
-
-
 
     this.map.on('load', (event) => {
       console.log('map load event fired')
@@ -77,7 +60,7 @@ export class MapViewComponent implements OnInit {
           type: 'FeatureCollection', 
           features: []
         }
-      })
+      });
       this.map.addLayer({
         id: 'firebase',
         source: 'firebase',
@@ -89,26 +72,6 @@ export class MapViewComponent implements OnInit {
       })
     });
 
-
-    // console.log(this.map)
-    // this.source = this.map.getSource('firebase');
-    // console.log(this.source);
-    // this.markers.subscribe(markers => {
-    //   let data = new FeatureCollection(markers);
-    //   console.log(data);
-    //   this.source.setData(data);
-    // });
-
-  }
-
-  removeMarker(marker) {
-    this.mapService.removeMarker(marker.$key);
-  }
-  
-  flyTo(data: GeoJson) {
-    this.map.flyTo({
-      center: [data.geometry.coordinates[0], data.geometry.coordinates[1]]
-    })
   }
 
 }

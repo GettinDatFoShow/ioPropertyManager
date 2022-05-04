@@ -13,10 +13,12 @@ export class MapService {
 
   MARKERS: string = 'markers';
   private token: string = environment.mapBox.accessToken;
+  private mapStyle: string = 'mapbox://styles/mapbox/streets-v11';
+
   constructor(private _firestore: Firestore) {
    }
 
-   getMarkers(): Observable<any> {
+   getMarkers(): Observable<GeoJson[]> {
     const markersRef = collection(this._firestore, this.MARKERS);
     return collectionData(markersRef, {idField: 'markerId'}) as Observable<any>;
    }
@@ -33,6 +35,10 @@ export class MapService {
    
    getToken(): string {
      return this.token;
+   }
+
+   getMapStyle(): string {
+     return this.mapStyle;
    }
 
 }

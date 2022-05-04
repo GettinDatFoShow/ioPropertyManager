@@ -21,6 +21,7 @@ export class AddPropertyComponent implements OnInit {
     'Multi-Family Complex',
     'Community'
   ]
+  address: any = {};
 
   constructor(
     public modalController: ModalController,
