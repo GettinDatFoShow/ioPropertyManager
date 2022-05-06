@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential, UserInfo } from '@angular/fire/auth';
 import { Firestore, collectionData, docData, doc, addDoc, deleteDoc, updateDoc, query, where } from '@angular/fire/firestore';
-import { collection, DocumentReference, getDoc, getDocs } from 'firebase/firestore';
+import { collection, DocumentData, DocumentReference, getDoc, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../global/models/globals.model';
 
@@ -20,14 +20,8 @@ export class UserService {
       this.auth.onAuthStateChanged((user: UserInfo) => {
         console.log('Changed', user);
         this.currentUserId = user.uid;
-        this.getUser(user.uid).then((snapshot)=> {
-          snapshot.forEach( async (userRef)=> {
-            docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
-              this.currentUser = user;
-            })
-            })
-          });
-        this.userInfoChangeSub.next(user);
+        this.reloadUser();
+        // this.userInfoChangeSub.next(user);
       })
     } catch (e) {
 
@@ -98,6 +92,19 @@ export class UserService {
 
   getCurrentUserId(): string {
     return this.currentUserId;
+  }
+
+  async reloadUser() {
+    await this.getUser(this.currentUserId).then((snapshot: QuerySnapshot<DocumentData>)=> {
+      snapshot.forEach( (userRef)=> {
+        docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
+          this.currentUser = user;
+          this.userInfoChangeSub.next(this.currentUser);
+           // this.router.navigateByUrl('/tabs', {replaceUrl: true});
+        });
+        // this.loadingUserData = false;
+      })
+    });
   }
 
 }

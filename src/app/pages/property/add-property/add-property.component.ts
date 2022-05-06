@@ -5,6 +5,8 @@ import { CompanyService } from '../../../services/company/company.service';
 import { Company, Property } from '../../../global/models/globals.model';
 import { NotificationPopupService } from 'src/app/services/notification-popup/notification-popup.service';
 import { UserService } from '../../../services/user/user.service';
+import { Feature } from '../../../global/models/map';
+import { MapService } from '../../../services/map-service/map.service';
 
 @Component({
   selector: 'iopm-add-property',
@@ -21,14 +23,16 @@ export class AddPropertyComponent implements OnInit {
     'Multi-Family Complex',
     'Community'
   ]
-  address: any = {};
+  selectedFullAddress: Feature = null;
+  searchAddressShown: boolean = false;
 
   constructor(
     public modalController: ModalController,
     private fb: FormBuilder, 
     private companyService: CompanyService,
     private notficationPopupService: NotificationPopupService,
-    private userService: UserService
+    private userService: UserService, 
+    private mapService: MapService
     ) {
      }
 
@@ -38,11 +42,7 @@ export class AddPropertyComponent implements OnInit {
     this.propertyForm = this.fb.group({
       propertyType: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      description: [''],
-      street: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      zip: ['', [Validators.required]],
+      description: ['']
     })
   }
 
@@ -58,12 +58,7 @@ export class AddPropertyComponent implements OnInit {
       active: true,
       propertyName: this.propertyForm.get('name').value,
       description: this.propertyForm.get('description').value,
-      location: {
-        street: this.propertyForm.get('street').value,
-        city: this.propertyForm.get('city').value,
-        state: this.propertyForm.get('state').value,
-        zip: this.propertyForm.get('zip').value
-      }
+      location: this.selectedFullAddress
     }
     if (!!this.company.properties) {
       this.company.properties.push(this.property);
@@ -89,5 +84,24 @@ export class AddPropertyComponent implements OnInit {
   userPropertyType(event: any): void {
     this.propertyForm.value['propertyType'] = event.detail.value;
     console.log('Property Type Selected: ', this.propertyForm.value['propertyType'])
+  }
+
+  onAddressSelection(address: Feature) {
+    this.selectedFullAddress = address;
+    this.propertyForm.value['location'] = this.selectedFullAddress;
+    this.searchAddressShown = false;
+  }
+
+  showAddressSearch() {
+    this.searchAddressShown = true;
+  }
+
+  removeAddress() {
+    this.selectedFullAddress = null;
+    this.searchAddressShown = true;
+  }
+
+  shortenAddress(placeName: string) {
+    return this.mapService.shortenAddress(placeName);
   }
 }

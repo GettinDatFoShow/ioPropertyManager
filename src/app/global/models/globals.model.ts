@@ -1,3 +1,4 @@
+import { Feature } from "./map";
 
 export interface User {
     uid?: string;
@@ -8,7 +9,7 @@ export interface User {
     signInEmail?: string;
     personalInfo?: Person;
     joinDate?: Date;
-    location?: Location;
+    location?: Feature;
     active?: boolean;
     isOwner?: boolean;
     membership?: any;
@@ -29,7 +30,7 @@ export interface Company {
     cid?: string;
     name?: string;
     contactDetails?: ContactDetails;
-    location?: Location;
+    location?: Feature;
     addedDate?: Date;
     properties?: Property[];
     employees?: User[];
@@ -55,7 +56,7 @@ export interface Property {
     propertyName?: string;
     description?: string;
     extraInfo?: ExtraInfo[];
-    location?: Location;
+    location?: Feature;
     schedule?: any;
     homes?: Home[];
     owners?: Person[];

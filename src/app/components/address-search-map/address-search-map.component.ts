@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../services/map-service/map.service';
-import { GeoJson, FeatureCollection } from '../../global/models/map';
+import { GeoJson, FeatureCollection, Feature, MapboxOutput } from '../../global/models/map';
 import { Observable } from 'rxjs';
+import { features } from 'process';
+import { Context, isContext } from 'vm';
 
 @Component({
   selector: 'iopm-address-search-map',
@@ -11,67 +13,42 @@ import { Observable } from 'rxjs';
 })
 export class AddressSearchMapComponent implements OnInit {
 
-  @Input() address: any;
-
   map: mapboxgl.Map;
   lng: number;
   lat: number;
 
+  addresses: Feature[] = [];
+  selectedAddress: string = null;
+  selectedFullAddress : Feature = null;
+  @Output() addressSelectedEvent: EventEmitter<Feature> = new EventEmitter();
+
   constructor(private mapService: MapService) { }
 
   ngOnInit() {    
-    // this.intializeMap();
   }
 
-  private intializeMap() {
-    // TO DO: replace with property or home coords.
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.map.jumpTo({
-          center: [this.lng, this.lat]
-        })
-      })
+  search(event: any) {
+    const searchTerm = `${event.target.value.toLowerCase()} United States`;
+    if (searchTerm && searchTerm.length > 0) {
+      this.mapService 
+        .searchWord(searchTerm)
+        .subscribe((mbo: MapboxOutput) => {
+          this.addresses = mbo.features;
+        });
+    } else {
+      this.addresses = [];
     }
-    this.buildMap();
   }
 
-  buildMap() {
-    this.map = new mapboxgl.Map({
-      accessToken: this.mapService.getToken(),
-      container: 'map',
-      style: this.mapService.getMapStyle(), 
-      zoom: 13,
-      center: [this.lng, this.lat]
-    });
+  onSelect(address: Feature) {
+    this.selectedFullAddress = address;
+    this.selectedAddress = this.shortenAddress(address.place_name);
+    this.addresses = [];
+    this.addressSelectedEvent.emit(this.selectedFullAddress);
+  }
 
-    this.map.on('click', (event) => {
-      const coordinates = [event.lngLat.lng, event.lngLat.lat];
-      const newMarker = new GeoJson(coordinates);
-      this.mapService.createMarker(newMarker);
-    });
-
-    this.map.on('load', (event) => {
-      console.log('map load event fired')
-      this.map.addSource('firebase', {
-        type: 'geojson', 
-        data: {
-          type: 'FeatureCollection', 
-          features: []
-        }
-      });
-      this.map.addLayer({
-        id: 'firebase',
-        source: 'firebase',
-        type: 'circle',
-        paint: {
-          "circle-color":'blue',
-          'circle-radius': 15
-        }
-      })
-    });
-
+  shortenAddress(placeName: string) {
+    return this.mapService.shortenAddress(placeName);
   }
 
 }

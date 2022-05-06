@@ -12,6 +12,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 
@@ -27,6 +28,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     CommonModule,
     FormsModule,  
     IonicModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

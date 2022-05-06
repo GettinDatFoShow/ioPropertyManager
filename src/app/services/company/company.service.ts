@@ -12,7 +12,8 @@ export class CompanyService {
   COMPANIES_KEY = 'Companies';
   public currentCompanyId: string = null;
   companyTabLock: Subject<Company> = new Subject();
-  
+  currentCompany: Company;
+
   constructor(private _firestore: Firestore) {
     console.warn('company service created')
    }
@@ -59,9 +60,17 @@ export class CompanyService {
     return this.currentCompanyId;
   }
 
+  getCurrentCompany(): Company {
+    return this.currentCompany;
+  }
+
   unlockTabs(company: Company) {
     console.log('unlockTabs....');
     this.companyTabLock.next(company);
+  }
+
+  getCompanyLocation() {
+    return this.getCompany(this.getCurrentCompanyId());
   }
 
 }

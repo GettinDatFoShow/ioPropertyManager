@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Property } from 'src/app/global/models/globals.model';
+import { Feature } from 'src/app/global/models/map';
 import { NotificationPopupService } from '../../../services/notification-popup/notification-popup.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class PropertyDisplayComponent implements OnInit {
 
   @Input() property: Property;
   locationShown: boolean = false;
+  @Output() address: Feature;
 
   constructor(
     private notficationPopupService: NotificationPopupService
@@ -23,9 +25,9 @@ export class PropertyDisplayComponent implements OnInit {
     this.clickWarning('View Photo');
   }
 
-  locationClick() {
+  locationClick(address: Feature) {
+    this.address = address;
     this.locationShown = !this.locationShown;
-    // this.clickWarning('View Location');
   }
 
   calendarClick() {

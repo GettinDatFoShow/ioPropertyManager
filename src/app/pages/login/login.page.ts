@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { docData, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -35,9 +36,26 @@ export class LoginPage implements OnInit {
     await this.userService.signIn(this.credentialForm.value).then( async res => {
       // console.log(res);
       // TO DO: FIX THIS BELOW BROKEN CODE
-      console.log(res);
-      loading.dismiss();
-      this.router.navigateByUrl('/tabs', {replaceUrl: true});
+      console.warn(res);
+      await this.userService.getUser(res.user.uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
+        snapshot.forEach( (userRef)=> {
+          docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
+            this.userService.currentUser = user;
+            
+            loading.dismiss();
+            this.router.navigateByUrl('/tabs', {replaceUrl: true});
+          });
+          // this.loadingUserData = false;
+        })
+        
+      }).catch((err) => {
+        // this.loadingUserData = false;
+        // this.notificationService.presentToast('Could not locate user information..', 'danger', 'sad-outline');
+        console.error(err);
+      }).finally(() => {
+        // this.loadingUserData = false;
+      });
+
     }, async err => {
       loading.dismiss();
       const alert = await this.alertController.create({

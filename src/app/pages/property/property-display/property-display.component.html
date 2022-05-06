@@ -6,7 +6,7 @@
       </ion-avatar>
       <ion-label>
         <h3>{{property.propertyName}}</h3>
-        <p>{{property.location.street}}</p>
+        <p>{{property.location.place_name}}</p>
         <p>Next Service: Jun 3rd, 2022</p>
       </ion-label>
     </ion-item>
@@ -17,14 +17,14 @@
         </ion-item>
         <ion-list slot="content">
           <ion-item-group>
-            <ion-item button (click)="locationClick()">
+            <ion-item button (click)="locationClick(property.location)">
               <ion-icon color="dark" name="location" slot="start"></ion-icon>
-              <ion-label>{{property.location.street}}</ion-label> 
+              <ion-label>{{property.location.place_name}}</ion-label> 
               <ion-icon color="dark" slot="end" name="chevron-forward"></ion-icon>       
             </ion-item>
             <div *ngIf="locationShown">
               <!-- <ion-item> -->
-                <iopm-map-view></iopm-map-view>
+                <iopm-map-view [address]="address"></iopm-map-view>
               <!-- </ion-item> -->
             </div>
             <ion-item button (click)="calendarClick()">

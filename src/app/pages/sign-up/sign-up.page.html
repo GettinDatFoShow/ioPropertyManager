@@ -225,49 +225,25 @@
             type="text">
             </ion-input>
           </ion-item >
-          <ion-item>
-            <ion-input
-            color="dark"
-            placeholder="Street*"
-            formControlName="street"
-            clearInput="true"
-            type="text"
-            ></ion-input>
+          <ion-item *ngIf="selectedFullAddress">
+            <ion-text color="dark">{{shortenAddress(selectedFullAddress.place_name)}}</ion-text>
+            <ion-icon slot="end" name="close" (click)="removeAddress()"></ion-icon>
           </ion-item>
-          <ion-item>
-            <ion-input
-            color="dark"
-            placeholder="City*"
-            formControlName="city"
-            clearInput="true"
-            type="text"
-            ></ion-input>
+          <ion-item button *ngIf="!selectedFullAddress" (click)="showAddressSearch()">
+            <ion-label *ngIf="!companyForm.dirty">Company Address</ion-label>
+            <ion-label *ngIf="companyForm.dirty && selectedFullAddress === null" class="errors">Select Address</ion-label>
           </ion-item>
-          <ion-item>
-            <ion-input 
-            color="dark"
-            placeholder="State*"
-            formControlName="state"
-            clearInput="true"
-            type="text">
-            </ion-input>
-          </ion-item >
-          <ion-item *ngIf="isOwner">
-            <ion-input 
-            color="dark"
-            placeholder="Zip Code*"
-            formControlName="zip"
-            clearInput="true"
-            type="number">
-            </ion-input>
-          </ion-item >
+  
+          <div *ngIf="searchAddressShown">
+            <iopm-address-search-map (addressSelectedEvent)="onAddressSelection($event)"></iopm-address-search-map>
+          </div>
         </ion-list>
       </ion-card-content>
     </ion-card>
 
   </form>
 
-  <ion-button *ngIf="this.userSelection" [disabled]="!(signUpForm.valid && !this.isOwner) && !(signUpForm.valid && this.isOwner && this.companyForm.valid)" (click)="signUp()" shape="square" expand="block"> Sign Up
+  <ion-button *ngIf="this.userSelection" [disabled]="!(signUpForm.valid && !this.isOwner) && !(signUpForm.valid && this.isOwner && this.companyForm.valid && !(selectedFullAddress === null))" (click)="signUp()" shape="square" expand="block"> Sign Up
     <ion-icon color="dark" slot="end" name="enter-outline"></ion-icon>
   </ion-button>
   

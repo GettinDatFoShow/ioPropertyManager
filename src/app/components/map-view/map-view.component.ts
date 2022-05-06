@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../services/map-service/map.service';
-import { GeoJson, FeatureCollection } from '../../global/models/map';
+import { GeoJson, FeatureCollection, Feature } from '../../global/models/map';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,26 +18,20 @@ export class MapViewComponent implements OnInit {
   // data
   source: any;
   markers: Observable<GeoJson[]>;
+  @Input() address: Feature = null;
 
   constructor(private mapService: MapService) { 
   }
 
   ngOnInit() {
-    this.markers = this.mapService.getMarkers();
+    // this.markers = this.mapService.getMarkers();
+    console.warn(this.address);
     this.intializeMap();
   }
 
   private intializeMap() {
-    // TO DO: replace with property or home coords.
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.map.jumpTo({
-          center: [this.lng, this.lat]
-        })
-      })
-    }
+    this.lat = this.address.geometry.coordinates[1];
+    this.lng = this.address.geometry.coordinates[0];
     this.buildMap();
   }
 
@@ -50,16 +44,9 @@ export class MapViewComponent implements OnInit {
       center: [this.lng, this.lat]
     });
 
-    // const marker1 = new mapboxgl.Marker()
-    // .setLngLat([this.lat, this.lng])
-    // .addTo(this.map)
-
-    // for (const key in this.firebaseData.messages) {
-    //   let m = this.firebaseData.messages[key];
-    //   m.type = 'Feature';
-    //   this.firebaseGeojsonFeatures.push(m);
-    // }
-    // this.map.addControl(new mapboxgl.NavigationControl());
+    // this.map.jumpTo({
+    //   center: [this.lng, this.lat]
+    // })
 
     this.map.on('click', (event) => {
       const coordinates = [event.lngLat.lng, event.lngLat.lat];
@@ -78,26 +65,20 @@ export class MapViewComponent implements OnInit {
           features: []
         }
       })
-      this.map.addLayer({
-        id: 'firebase',
-        source: 'firebase',
-        type: 'circle',
-        paint: {
-          "circle-color":'blue',
-          'circle-radius': 15
-        }
-      })
-    });
+      // this.map.addLayer({
+      //   id: 'firebase',
+      //   source: 'firebase',
+      //   type: 'circle',
+      //   paint: {
+      //     "circle-color":'blue',
+      //     'circle-radius': 15
+      //   }
+      // })
 
-
-    // console.log(this.map)
-    // this.source = this.map.getSource('firebase');
-    // console.log(this.source);
-    // this.markers.subscribe(markers => {
-    //   let data = new FeatureCollection(markers);
-    //   console.log(data);
-    //   this.source.setData(data);
-    // });
+      const marker1 = new mapboxgl.Marker()
+        .setLngLat([this.lng, this.lat])
+        .addTo(this.map);
+      });
 
   }
 

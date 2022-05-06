@@ -6,6 +6,8 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
 import { NotificationPopupService } from '../../services/notification-popup/notification-popup.service';
+import { Feature } from '../../global/models/map';
+import { MapService } from '../../services/map-service/map.service';
 
 @Component({
   selector: 'iopm-sign-up',
@@ -21,7 +23,9 @@ export class SignUpPage implements OnInit {
   companies: Company[] = [];
   company: Company = null;
   user: User = null;
-  
+  selectedFullAddress: Feature = null;
+  searchAddressShown: boolean = null;
+
   constructor(
     private _fb: FormBuilder, 
     private _companyService: CompanyService, 
@@ -29,7 +33,8 @@ export class SignUpPage implements OnInit {
     private _userService: UserService,
     private _router: Router,
     private _alertController: AlertController,
-    private notficationPopupService: NotificationPopupService
+    private notficationPopupService: NotificationPopupService,
+    private mapService: MapService
     ) { 
     this._companyService.getCompanies().subscribe(res => {
       console.log('COMPANIES');
@@ -65,11 +70,8 @@ export class SignUpPage implements OnInit {
     if (this.isOwner) {
       this.companyForm = this._fb.group({
         email: ['', [Validators.email]],
-        zip: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        state: ['', [Validators.required]],
         phone: ['', [Validators.required, Validators.minLength(8)]],
-        city: ['', [Validators.required]],
+        lcoation: [null],
         website: [''],
       })
     }
@@ -126,12 +128,7 @@ export class SignUpPage implements OnInit {
           email: this.companyForm.get('email').value,
           website: this.companyForm.get('website').value
         },
-        location: {
-          street: this.companyForm.get('street').value,
-          city: this.companyForm.get('city').value,
-          state: this.companyForm.get('state').value,
-          zip: this.companyForm.get('zip').value
-        },
+        location: this.selectedFullAddress,
         addedDate: new Date(),
         properties: [],
         employees: []
@@ -164,6 +161,25 @@ export class SignUpPage implements OnInit {
       });
       await alert.present(); 
     })
+  }
+
+  onAddressSelection(address: Feature) {
+    this.selectedFullAddress = address;
+    this.companyForm.value['location'] = this.selectedFullAddress;
+    this.searchAddressShown = false;
+  }
+
+  showAddressSearch() {
+    this.searchAddressShown = true;
+  }
+
+  removeAddress() {
+    this.selectedFullAddress = null;
+    this.searchAddressShown = true;
+  }
+
+  shortenAddress(placeName: string) {
+    return this.mapService.shortenAddress(placeName);
   }
 
   async addCompany(company: Company) {

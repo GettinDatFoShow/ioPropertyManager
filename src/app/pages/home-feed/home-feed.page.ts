@@ -25,38 +25,25 @@ export class HomeFeedPage implements OnInit {
     private companyService: CompanyService,
     private notificationService: NotificationPopupService
     ) {
+      this.userService.userInfoChangeSub.subscribe((user)=>{
+        this.getUser();
+      });
 
      }
 
   ngOnInit() {
-    this.userService.userInfoChangeSub.subscribe({
-      next: (user: UserInfo) => {
-        this.getUser(user.uid);
-      }
-    });
+        
   }
 
   ionViewWillEnter() {
-    // this.getUser();
+    this.getUser();
   }
 
-  async getUser(uid: string) {
-    await this.userService.getUser(uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
-        snapshot.forEach( (userRef)=> {
-          docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
-            this.userService.currentUser = user;
-            this.companyService.currentCompanyId = user.companyId
-            this.getUserCompanyInfo(user.companyId);
-          });
-          this.loadingUserData = false;
-        })
-      }).catch((err) => {
-        this.loadingUserData = false;
-        this.notificationService.presentToast('Could not locate user information..', 'danger', 'sad-outline');
-        console.error(err);
-      }).finally(() => {
-        this.loadingUserData = false;
-    });
+  getUser() {
+    this.user = this.userService.getCurrentUser();
+    console.warn('home feed user');
+    console.warn(this.user)
+    this.user === null ? this.userService.reloadUser(): this.getUserCompanyInfo(this.user.companyId);
   }
 
   getUserCompanyInfo(cid: string) {
