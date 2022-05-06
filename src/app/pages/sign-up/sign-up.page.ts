@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NotificationPopupService } from '../../services/notification-popup/notification-popup.service';
 import { Feature } from '../../global/models/map';
 import { MapService } from '../../services/map-service/map.service';
+import { docData, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'iopm-sign-up',
@@ -30,7 +31,7 @@ export class SignUpPage implements OnInit {
     private _fb: FormBuilder, 
     private _companyService: CompanyService, 
     private _loadingController: LoadingController,
-    private _userService: UserService,
+    private userService: UserService,
     private _router: Router,
     private _alertController: AlertController,
     private notficationPopupService: NotificationPopupService,
@@ -142,15 +143,26 @@ export class SignUpPage implements OnInit {
       this.user.companyId = this.company.cid;
     }
 
-    await this._userService.signUp({email: this.signUpForm.get('signInEmail').value, password: this.signUpForm.get('password').value}).then(async res => {
+    await this.userService.signUp({email: this.signUpForm.get('signInEmail').value, password: this.signUpForm.get('password').value}).then(async res => {
       console.log('RESULT OF SIGNUP');
       console.log(res);
       this.user.uid = res.user.uid;
-      await this._userService.createUser(this.user).then(res=>{
-        this._userService.setCurrentUser(this.user);
+      await this.userService.createUser(this.user).then(res=>{
+        this.userService.setCurrentUser(this.user);
         loading.dismiss();
         this.notficationPopupService.presentToast('Account Created Successfully!', 'success', 'thumbs-up-outline')
-        this._router.navigateByUrl('/tabs', {replaceUrl: true});
+        // THIS IS NEW *** NEED TO TEST BELOW CODE ***
+        this.userService.getUser(this.user.uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
+          snapshot.forEach( (userRef)=> {
+            docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
+              this.userService.currentUser = user;
+              
+              loading.dismiss();
+              this._router.navigateByUrl('/tabs', {replaceUrl: true});
+            });
+            // this.loadingUserData = false;
+          });
+        });
       })
     }, async err => {
       loading.dismiss();
