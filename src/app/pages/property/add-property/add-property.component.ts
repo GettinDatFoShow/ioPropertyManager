@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { CompanyService } from '../../../services/company/company.service';
@@ -23,7 +23,7 @@ export class AddPropertyComponent implements OnInit {
     'Multi-Family Complex',
     'Community'
   ]
-  selectedFullAddress: Feature = null;
+  @Output() selectedFullAddress: Feature = null;
   searchAddressShown: boolean = false;
 
   constructor(

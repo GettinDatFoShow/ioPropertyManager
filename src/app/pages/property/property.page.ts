@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { ModalController } from '@ionic/angular';
-import { Company, Property } from '../../global/models/globals.model';
+import { Company, Property, User } from '../../global/models/globals.model';
 import { CompanyService } from '../../services/company/company.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -15,25 +15,39 @@ export class PropertyPage {
 
   properties: Property[] = [];
   fullViewIndex: number = 1;
+  user: User;
 
   constructor(
     private modalController: ModalController,
     private companyService: CompanyService,
     private userService: UserService
     ) {
+      this.userService.userInfoChangeSub.subscribe((user)=>{
+        this.getUser();
+      });
+  }
 
+  getUser() {
+    this.user = this.userService.getCurrentUser();
+    console.warn('home feed user');
+    console.warn(this.user)
+    this.user === null ? this.userService.reloadUser(): this.getUserCompanyInfo(this.user.companyId);
+  }
+
+  getUserCompanyInfo(cid: string) {
+    this.companyService.getCompany(cid).subscribe((company: Company)=> {
+      this.companyService.getCompany(this.userService.currentUser.companyId).subscribe((company: Company) => {
+        console.log('getting company....');
+        console.log(company);
+        if (!!company.properties){
+          this.properties = company.properties;
+        }
+      })
+    })
   }
 
   ionViewWillEnter() {
-    console.log('ION WILL ENTER');
-    console.log(this.userService.currentUser)
-    this.companyService.getCompany(this.userService.currentUser.companyId).subscribe((company: Company) => {
-      console.log('getting company....');
-      console.log(company);
-      if (!!company.properties){
-        this.properties = company.properties;
-      }
-    })
+    this.getUser();
   }
   
   async addProperty(ev: any) {

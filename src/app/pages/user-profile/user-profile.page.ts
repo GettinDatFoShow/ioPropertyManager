@@ -16,7 +16,11 @@ export class UserProfilePage {
   company: Company = null;
   loadingUserData: boolean = true;
 
-  constructor(private userService: UserService, private companyService: CompanyService) { }
+  constructor(private userService: UserService, private companyService: CompanyService) {
+    this.userService.userInfoChangeSub.subscribe((user)=>{
+      this.getUser();
+    });
+   }
 
   ionViewWillEnter() {
     this.getUser();
