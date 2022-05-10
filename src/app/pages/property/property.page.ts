@@ -37,8 +37,6 @@ export class PropertyPage {
   getUserCompanyInfo(cid: string) {
     this.companyService.getCompany(cid).subscribe((company: Company)=> {
       this.companyService.getCompany(this.userService.currentUser.companyId).subscribe((company: Company) => {
-        console.log('getting company....');
-        console.log(company);
         if (!!company.properties){
           this.properties = company.properties;
         }
@@ -53,14 +51,10 @@ export class PropertyPage {
   async addProperty(ev: any) {
     const popover = await this.modalController.create({
       component: AddPropertyComponent,
-      // cssClass: 'my-custom-class',
-      // event: ev,
-      // translucent: true
     });
     await popover.present();
 
     const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
 }

@@ -18,7 +18,6 @@ export class UserService {
   constructor(private auth: Auth, private firestore: Firestore) { 
     try {
       this.auth.onAuthStateChanged((user: UserInfo) => {
-        console.log('Changed', user);
         this.currentUserId = user.uid;
         this.reloadUser();
         // this.userInfoChangeSub.next(user);
@@ -33,7 +32,6 @@ export class UserService {
   async signUp({ email, password}) {
     try {
       const credential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      console.log('result', credential);
       return credential;
     } catch (e) {
       console.warn(e.message);
@@ -55,7 +53,6 @@ export class UserService {
 
   getUser(uid: string) {
     console.warn('user service getUser uid')
-    console.log(uid);
     const usersRef = collection(this.firestore, `${this.USERS_KEY}`);
     const q = query(usersRef, where('uid', '==', `${uid}`));
     return getDocs(q);

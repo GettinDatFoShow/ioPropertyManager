@@ -25,6 +25,11 @@ const routes: Routes = [
         loadChildren: () => import('../../pages/subscription-details/subscription-details.module').then( m => m.SubscriptionDetailsPageModule)
       },
       {
+        path: 'company',
+        loadChildren: () => import('../../pages/company/company.module').then( m => m.CompanyPageModule),
+        pathMatch: 'full'
+      },
+      {
         path: 'userProfile',
         loadChildren: () => import('../../pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
       },

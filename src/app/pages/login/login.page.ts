@@ -34,14 +34,13 @@ export class LoginPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
     await this.userService.signIn(this.credentialForm.value).then( async res => {
-      // console.log(res);
       // TO DO: FIX THIS BELOW BROKEN CODE
       console.warn(res);
       await this.userService.getUser(res.user.uid).then((snapshot: QuerySnapshot<DocumentData>)=> {
         snapshot.forEach( (userRef)=> {
           docData(userRef.ref, { idField: 'uid' }).subscribe( (user)=> {
             this.userService.currentUser = user;
-            
+
             loading.dismiss();
             this.router.navigateByUrl('/tabs', {replaceUrl: true});
           });

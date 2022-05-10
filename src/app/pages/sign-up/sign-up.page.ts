@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CompanyService } from '../../services/company/company.service';
-import { ContactDetails, Company, Person, User } from '../../global/models/globals.model';
+import { ContactDetails, Company, Person, User, Name } from '../../global/models/globals.model';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
@@ -38,8 +38,6 @@ export class SignUpPage implements OnInit {
     private mapService: MapService
     ) { 
     this._companyService.getCompanies().subscribe(res => {
-      console.log('COMPANIES');
-      console.log(res);
     })
   }
 
@@ -114,8 +112,10 @@ export class SignUpPage implements OnInit {
         active: true,
         isOwner: this.isOwner,
         personalInfo: <Person> {
-          first: this.signUpForm.get('first').value,
-          last: this.signUpForm.get('last').value,
+          name: <Name> {
+            first: this.signUpForm.get('first').value,
+            last: this.signUpForm.get('last').value,
+          },
           contactDetails: [{
             phone: this.signUpForm.get('phone').value,
             email: this.signUpForm.get('signInEmail').value,
@@ -144,8 +144,6 @@ export class SignUpPage implements OnInit {
     }
 
     await this.userService.signUp({email: this.signUpForm.get('signInEmail').value, password: this.signUpForm.get('password').value}).then(async res => {
-      console.log('RESULT OF SIGNUP');
-      console.log(res);
       this.user.uid = res.user.uid;
       await this.userService.createUser(this.user).then(res=>{
         this.userService.setCurrentUser(this.user);

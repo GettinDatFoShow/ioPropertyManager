@@ -44,10 +44,6 @@ export class MapViewComponent implements OnInit {
       center: [this.lng, this.lat]
     });
 
-    // this.map.jumpTo({
-    //   center: [this.lng, this.lat]
-    // })
-
     this.map.on('click', (event) => {
       const coordinates = [event.lngLat.lng, event.lngLat.lat];
       const newMarker = new GeoJson(coordinates);
@@ -57,7 +53,6 @@ export class MapViewComponent implements OnInit {
 
 
     this.map.on('load', (event) => {
-      console.log('map load event fired')
       this.map.addSource('firebase', {
         type: 'geojson', 
         data: {
@@ -65,15 +60,6 @@ export class MapViewComponent implements OnInit {
           features: []
         }
       })
-      // this.map.addLayer({
-      //   id: 'firebase',
-      //   source: 'firebase',
-      //   type: 'circle',
-      //   paint: {
-      //     "circle-color":'blue',
-      //     'circle-radius': 15
-      //   }
-      // })
 
       const marker1 = new mapboxgl.Marker()
         .setLngLat([this.lng, this.lat])

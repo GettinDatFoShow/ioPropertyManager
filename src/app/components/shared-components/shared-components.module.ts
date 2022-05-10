@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { AddScheduleDateComponent } from '../add-schedule-date/add-schedule-date.component';
 import { MapViewComponent } from '../map-view/map-view.component';
 import { AddressSearchMapComponent } from '../address-search-map/address-search-map.component';
+import { PhonePipe } from 'src/app/global/pipes/phone/phone.pipe';
 
 
 

@@ -15,10 +15,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { PhonePipe } from './global/pipes/phone/phone.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PhonePipe
   ],
   entryComponents: [],
   imports: [

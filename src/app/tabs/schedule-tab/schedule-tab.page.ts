@@ -14,6 +14,7 @@ export class ScheduleTabPage implements OnInit {
   menuList = [
     { label: 'Home' , route: '/tabs/homeTab/home', icon: 'newspaper-outline'},
     { label: 'Profile', route: '/tabs/homeTab/userProfile',  icon: 'id-card-outline'},
+    { label: 'Company', route: '/tabs/homeTab/company',  icon: 'business-outline'},
     { label: 'Team Members', route: '/tabs/homeTab/teamMembers',  icon: 'people-outline'},
     { label: 'Subscription', route: '/tabs/homeTab/subscriptionDetails',  icon: 'pricetags-outline'},
     { label: 'Settings', route: '/tabs/homeTab/settings',  icon: 'settings-outline'},

@@ -33,8 +33,6 @@ export class SchedulePage implements OnInit {
 
   getUser() {
     this.user = this.userService.getCurrentUser();
-    console.warn('home feed user');
-    console.warn(this.user)
     this.user === null ? this.userService.reloadUser(): this.getUserCompanyInfo(this.user.companyId);
   }
 
@@ -46,7 +44,6 @@ export class SchedulePage implements OnInit {
     })
   }
   ngOnInit() {
-    console.log(this.today);
   }
 
   addEvent() {
@@ -64,12 +61,10 @@ export class SchedulePage implements OnInit {
     await popover.present();
   
     const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   popoverClosed() {
     this.isPopoverOpen = false;
-    console.log('POPOVER CLOSED')
   }
 
 

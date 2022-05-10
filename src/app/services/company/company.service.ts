@@ -50,13 +50,9 @@ export class CompanyService {
 
   setCurrentCompanyId(cid: string) {
     this.currentCompanyId = cid;
-    console.log('setting company id');
-    console.log(this.currentCompanyId);
   }
 
   getCurrentCompanyId(): string {
-    console.log('returning companyId')
-    console.log(this.currentCompanyId);
     return this.currentCompanyId;
   }
 
@@ -65,7 +61,6 @@ export class CompanyService {
   }
 
   unlockTabs(company: Company) {
-    console.log('unlockTabs....');
     this.companyTabLock.next(company);
   }
 

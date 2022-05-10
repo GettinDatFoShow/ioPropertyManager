@@ -20,8 +20,6 @@ export class TabsPage {
   ionViewWillEnter() {
     this.companyTabLockSubscription = this.companyService.companyTabLock.subscribe({
       next: (company: Company) => {
-        console.log('company tab lock subscription hit');
-        console.log(company);
         company.cid !== null && company.cid !== undefined ? this.tabsLocked = false : null;
       }
     })
